@@ -18,7 +18,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ==========================================================
 
 def _load_env_file(path):
-    """Read KEY=VALUE lines into os.environ without overriding existing values."""
+    """
+    Read KEY=VALUE lines into os.environ without overriding
+    existing environment variables.
+
+    This allows local development using a .env file while
+    Render environment variables take priority in production.
+    """
 
     try:
         lines = path.read_text(encoding="utf-8").splitlines()
@@ -43,7 +49,11 @@ def _load_env_file(path):
         value = value.strip()
 
         # Remove surrounding quotes
-        if len(value) >= 2 and value[0] == value[-1] and value[0] in ("'", '"'):
+        if (
+            len(value) >= 2
+            and value[0] == value[-1]
+            and value[0] in ("'", '"')
+        ):
             value = value[1:-1]
 
         if key and key not in os.environ:
@@ -51,6 +61,35 @@ def _load_env_file(path):
 
 
 _load_env_file(BASE_DIR / ".env")
+
+
+# ==========================================================
+# HELPER FUNCTIONS FOR ENVIRONMENT VARIABLES
+# ==========================================================
+
+def env_bool(name, default=False):
+    """
+    Convert an environment variable to a real Python boolean.
+
+    Supports:
+        True / False
+        true / false
+        1 / 0
+        yes / no
+        on / off
+    """
+
+    value = os.environ.get(name)
+
+    if value is None:
+        return default
+
+    return value.strip().lower() in (
+        "true",
+        "1",
+        "yes",
+        "on",
+    )
 
 
 # ==========================================================
@@ -62,7 +101,7 @@ SECRET_KEY = os.environ.get(
     "django-insecure-change-this-secret-key-in-production"
 )
 
-DEBUG = os.environ.get("DEBUG", "0") == "1"
+DEBUG = env_bool("DEBUG", False)
 
 
 # ==========================================================
@@ -187,16 +226,24 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "NAME":
+            "django.contrib.auth.password_validation."
+            "UserAttributeSimilarityValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "NAME":
+            "django.contrib.auth.password_validation."
+            "MinimumLengthValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+        "NAME":
+            "django.contrib.auth.password_validation."
+            "CommonPasswordValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+        "NAME":
+            "django.contrib.auth.password_validation."
+            "NumericPasswordValidator",
     },
 ]
 
@@ -220,7 +267,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-# Your development static folder
+# Development static folder
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
@@ -231,7 +278,8 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # WhiteNoise production storage
 STORAGES = {
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND":
+            "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
 
@@ -263,34 +311,58 @@ AUTH_USER_MODEL = "accounts.User"
 # EMAIL SETTINGS
 # ==========================================================
 
-EMAIL_HOST = os.environ.get("EMAIL_HOST", "")
-
-EMAIL_PORT = int(
-    os.environ.get("EMAIL_PORT", "587")
+# SMTP server
+EMAIL_HOST = os.environ.get(
+    "EMAIL_HOST",
+    "smtp.gmail.com"
 )
 
+# Gmail STARTTLS port
+EMAIL_PORT = int(
+    os.environ.get(
+        "EMAIL_PORT",
+        "587"
+    )
+)
+
+# Gmail account
 EMAIL_HOST_USER = os.environ.get(
     "EMAIL_HOST_USER",
     ""
 )
 
+# Gmail App Password
 EMAIL_HOST_PASSWORD = os.environ.get(
     "EMAIL_HOST_PASSWORD",
     ""
 )
 
-EMAIL_USE_TLS = (
-    os.environ.get("EMAIL_USE_TLS", "1") == "1"
+# IMPORTANT:
+# Render provides environment variables as strings.
+# These functions convert True/False correctly to Python booleans.
+
+EMAIL_USE_TLS = env_bool(
+    "EMAIL_USE_TLS",
+    True
 )
 
-EMAIL_USE_SSL = (
-    os.environ.get("EMAIL_USE_SSL", "0") == "1"
+EMAIL_USE_SSL = env_bool(
+    "EMAIL_USE_SSL",
+    False
 )
 
+# SMTP timeout
 EMAIL_TIMEOUT = int(
-    os.environ.get("EMAIL_TIMEOUT", "10")
+    os.environ.get(
+        "EMAIL_TIMEOUT",
+        "10"
+    )
 )
 
+
+# ==========================================================
+# EMAIL BACKEND
+# ==========================================================
 
 if os.environ.get("EMAIL_BACKEND"):
 
@@ -308,6 +380,10 @@ else:
         "django.core.mail.backends.console.EmailBackend"
     )
 
+
+# ==========================================================
+# DEFAULT EMAIL ADDRESS
+# ==========================================================
 
 DEFAULT_FROM_EMAIL = os.environ.get(
     "DEFAULT_FROM_EMAIL",
@@ -341,7 +417,8 @@ LOGGING = {
 
     "formatters": {
         "simple": {
-            "format": "{levelname} {asctime} {name} {message}",
+            "format":
+                "{levelname} {asctime} {name} {message}",
             "style": "{",
         },
     },
@@ -462,7 +539,7 @@ UNFOLD = {
             {
 
                 "title":
-                "Academic Management",
+                    "Academic Management",
 
                 "separator": True,
 
@@ -494,7 +571,7 @@ UNFOLD = {
             {
 
                 "title":
-                "People",
+                    "People",
 
                 "separator": True,
 
@@ -514,7 +591,7 @@ UNFOLD = {
             {
 
                 "title":
-                "Workload Management",
+                    "Workload Management",
 
                 "separator": True,
 
