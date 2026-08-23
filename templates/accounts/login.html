@@ -1,0 +1,603 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>
+AUCA Workload Management System - Login
+</title>
+
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+<style>
+
+:root {
+
+    --auca-blue:#0056A6;
+    --auca-dark:#003B73;
+
+}
+
+
+
+* {
+
+    box-sizing:border-box;
+    font-family:"Segoe UI", Arial, sans-serif;
+
+}
+
+
+
+body {
+
+    margin:0;
+    height:100vh;
+    background:white;
+
+    display:flex;
+    flex-direction:column;
+
+}
+
+
+
+/* HEADER */
+
+.header {
+
+    text-align:center;
+    padding-top:20px;
+
+}
+
+
+
+.header img {
+
+    width:350px;
+    max-width:90%;
+
+}
+
+
+
+.header h1 {
+
+    margin:10px;
+
+    color:var(--auca-blue);
+
+    font-size:28px;
+
+}
+
+
+
+.container {
+
+    flex:1;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+
+
+
+/* LOGIN CARD */
+
+
+.login-box {
+
+    width:400px;
+
+    padding:35px;
+
+    background:white;
+
+    border-radius:15px;
+
+    border-top:6px solid var(--auca-blue);
+
+    box-shadow:
+    0 10px 30px rgba(0,86,166,.2);
+
+}
+
+
+
+
+.login-box h2 {
+
+    text-align:center;
+
+    color:var(--auca-blue);
+
+}
+
+
+
+.subtitle {
+
+    text-align:center;
+
+    color:#777;
+
+    margin-bottom:25px;
+
+}
+
+
+
+
+/* Messages */
+
+
+.message {
+
+    padding:10px;
+
+    margin-bottom:15px;
+
+    border-radius:6px;
+
+    background:#ffe5e5;
+
+    color:#900;
+
+    text-align:center;
+
+}
+
+
+
+/* INPUTS */
+
+
+.input-group {
+
+    position:relative;
+
+    margin-bottom:18px;
+
+}
+
+
+
+.input-group i {
+
+    position:absolute;
+
+    left:15px;
+
+    top:14px;
+
+    color:var(--auca-blue);
+
+}
+
+
+
+.input-group input {
+
+    width:100%;
+
+    padding:13px 15px 13px 45px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+}
+
+
+
+.input-group input:focus {
+
+    outline:none;
+
+    border-color:var(--auca-blue);
+
+}
+
+
+
+/* Room on the right so the eye never sits on the text. */
+
+.input-group input[type="password"],
+.input-group input.has-toggle {
+
+    padding-right:46px;
+
+}
+
+
+
+/* The toggle is a real button, so it is reachable by keyboard
+   and announces its state. The page-level `button` rule below
+   makes every button full width and blue, which would cover
+   the field -- these overrides undo that. */
+
+.toggle-password {
+
+    position:absolute;
+
+    right:6px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:34px;
+
+    height:34px;
+
+    padding:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:transparent;
+
+    border:none;
+
+    border-radius:6px;
+
+    color:#8a949e;
+
+    font-size:15px;
+
+    cursor:pointer;
+
+}
+
+
+
+.toggle-password:hover {
+
+    background:#eef4fa;
+
+    color:var(--auca-blue);
+
+}
+
+
+
+.toggle-password:focus-visible {
+
+    outline:2px solid var(--auca-blue);
+
+    outline-offset:1px;
+
+}
+
+
+
+
+/* BUTTON */
+
+
+button {
+
+    width:100%;
+
+    padding:13px;
+
+    background:var(--auca-blue);
+
+    border:none;
+
+    border-radius:8px;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+
+button:hover {
+
+    background:var(--auca-dark);
+
+}
+
+
+
+
+.signup {
+
+    text-align:center;
+
+    margin-top:20px;
+
+    color:#666;
+
+}
+
+
+
+
+footer {
+
+    text-align:center;
+
+    padding:12px;
+
+    color:#777;
+
+    font-size:12px;
+
+}
+
+
+
+</style>
+
+
+</head>
+
+
+
+<body>
+
+
+
+<div class="header">
+
+
+<img src="{% static 'images/AUCA Logo.png' %}"
+alt="AUCA Logo">
+
+
+<h1>
+AUCA Workload Management System
+</h1>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="container">
+
+
+
+<div class="login-box">
+
+
+
+<h2>
+Login
+</h2>
+
+
+
+<div class="subtitle">
+
+Access your account
+
+</div>
+
+
+
+
+
+{% if messages %}
+
+{% for message in messages %}
+
+<div class="message">
+
+{{ message }}
+
+</div>
+
+{% endfor %}
+
+{% endif %}
+
+
+
+
+
+
+
+<form method="POST">
+
+
+{% csrf_token %}
+
+
+
+
+
+<div class="input-group">
+
+
+<i class="fa-solid fa-user"></i>
+
+
+<input
+
+type="text"
+
+name="username"
+
+placeholder="Username"
+
+autocomplete="username"
+
+required>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="input-group">
+
+
+<i class="fa-solid fa-lock"></i>
+
+
+<input
+
+type="password"
+
+name="password"
+
+id="password"
+
+placeholder="Password"
+
+autocomplete="current-password"
+
+required>
+
+
+<button type="button"
+        class="toggle-password"
+        id="togglePassword"
+        aria-label="Show password"
+        aria-pressed="false">
+
+<i class="fa-solid fa-eye" id="toggleIcon"></i>
+
+</button>
+
+
+</div>
+
+
+
+
+
+
+
+
+<button type="submit">
+
+Sign In
+
+</button>
+
+
+
+
+
+
+<div class="signup">
+
+Need an account?
+
+<br>
+
+Contact System Administrator
+
+</div>
+
+
+
+
+
+
+</form>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<footer>
+
+© 2026 Adventist University of Central Africa |
+
+AUCA Workload Management System
+
+</footer>
+
+
+
+<script>
+(function () {
+
+  var field  = document.getElementById("password");
+  var button = document.getElementById("togglePassword");
+  var icon   = document.getElementById("toggleIcon");
+
+  if (!field || !button) return;
+
+  button.addEventListener("click", function () {
+
+    var shown = field.type === "text";
+
+    field.type = shown ? "password" : "text";
+
+    icon.classList.toggle("fa-eye", shown);
+    icon.classList.toggle("fa-eye-slash", !shown);
+
+    button.setAttribute("aria-pressed", String(!shown));
+    button.setAttribute(
+      "aria-label",
+      shown ? "Show password" : "Hide password"
+    );
+
+    // Keep the caret where it was; changing type moves it
+    // to the start in some browsers.
+    field.focus();
+    var end = field.value.length;
+    field.setSelectionRange(end, end);
+
+  });
+
+  // The class survives the type change; the attribute
+  // selector above does not once type becomes "text".
+  field.classList.add("has-toggle");
+
+})();
+</script>
+
+</body>
+
+
+</html>

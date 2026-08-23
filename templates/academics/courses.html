@@ -1,0 +1,214 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}
+Courses
+{% endblock %}
+
+
+
+{% block content %}
+
+
+
+<div class="dashboard-wrapper">
+
+
+<h2 class="page-title">
+Course Management
+</h2>
+
+
+
+<a href="{% url 'academics:course_create' %}"
+class="admin-dashboard-btn">
+
+<i class="fa-solid fa-plus"></i>
+
+Add Course
+
+</a>
+
+
+
+
+{% include "partials/search_box.html" %}
+
+{% if is_searching %}
+<p class="search-summary">
+Showing <strong>{{ result_count }}</strong> of {{ total_count }}
+matching &ldquo;<strong>{{ search_query }}</strong>&rdquo;.
+</p>
+{% endif %}
+
+<div class="table-scroll">
+
+<table class="modern-table">
+
+
+<tr>
+
+
+<th>
+Code
+</th>
+
+
+<th>
+Course Name
+</th>
+
+
+<th>
+Program
+</th>
+
+
+<th>
+Credits
+</th>
+
+
+<th>
+Level
+</th>
+
+
+<th>
+Actions
+</th>
+
+
+</tr>
+
+
+
+{% for course in courses %}
+
+
+
+<tr>
+
+
+
+<td>
+
+{{ course.code }}
+
+</td>
+
+
+
+<td>
+
+{{ course.name }}
+
+</td>
+
+
+
+<td>
+
+{% if course.program %}
+
+{{ course.program.name }}
+
+{% else %}
+
+Not Assigned
+
+{% endif %}
+
+</td>
+
+
+
+<td>
+
+{{ course.credits }}
+
+</td>
+
+
+
+<td>
+
+{{ course.level }}
+
+</td>
+
+
+
+<td>
+
+
+
+
+<div class="table-actions">
+<a href="{% url 'academics:course_update' course.id %}"
+class="edit-btn">
+
+<i class="fa-solid fa-pen"></i>
+
+Edit
+
+</a>
+
+
+
+<a href="{% url 'academics:course_delete' course.id %}"
+class="delete-link">
+
+<i class="fa-solid fa-trash"></i>
+
+Delete
+
+</a>
+</div>
+
+
+
+</td>
+
+
+</tr>
+
+
+
+{% empty %}
+
+
+<tr>
+
+<td colspan="6">
+
+{% if is_searching %}
+Nothing matches &ldquo;{{ search_query }}&rdquo;.
+<a href="{{ request.path }}">Clear the search</a>
+to see all {{ total_count }}.
+{% else %}
+No courses available
+{% endif %}
+
+</td>
+
+</tr>
+
+
+
+{% endfor %}
+
+
+
+</table>
+
+</div>
+
+
+
+</div>
+
+
+
+{% endblock %}

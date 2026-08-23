@@ -1,0 +1,973 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Admin Dashboard
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="dashboard-wrapper">
+
+
+
+<h2 class="page-title">
+Admin Dashboard
+</h2>
+
+
+
+<p class="welcome">
+Welcome back,
+<strong>{{ user.username }}</strong>
+</p>
+
+
+
+
+
+
+<!-- =================================================
+     ACADEMIC STATISTICS
+================================================== -->
+
+
+<h3 class="section-title">
+Academic Statistics
+</h3>
+
+
+<div class="dashboard-cards">
+
+
+
+<a href="{% url 'academics:faculty_list' %}" 
+class="stat-card no-link-style">
+
+<div class="icon blue">
+<i class="fa-solid fa-building-columns"></i>
+</div>
+
+
+<div>
+
+<h3>
+{{ total_faculties }}
+</h3>
+
+<p>
+Faculties
+</p>
+
+</div>
+
+</a>
+
+
+
+
+
+
+
+
+<a href="{% url 'academics:program_list' %}"
+class="stat-card no-link-style">
+
+
+<div class="icon green">
+
+<i class="fa-solid fa-graduation-cap"></i>
+
+</div>
+
+
+<div>
+
+<h3>
+{{ total_programs }}
+</h3>
+
+<p>
+Programs
+</p>
+
+</div>
+
+
+</a>
+
+
+
+
+
+
+
+
+<a href="{% url 'academics:lecturer_list' %}"
+class="stat-card no-link-style">
+
+
+<div class="icon orange">
+
+<i class="fa-solid fa-chalkboard-user"></i>
+
+</div>
+
+
+<div>
+
+<h3>
+{{ total_lecturers }}
+</h3>
+
+
+<p>
+Lecturers
+</p>
+
+
+</div>
+
+
+</a>
+
+
+
+
+
+
+
+
+<a href="{% url 'academics:course_list' %}"
+class="stat-card no-link-style">
+
+
+<div class="icon purple">
+
+<i class="fa-solid fa-book"></i>
+
+</div>
+
+
+<div>
+
+<h3>
+{{ total_courses }}
+</h3>
+
+
+<p>
+Courses
+</p>
+
+
+</div>
+
+
+</a>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- =================================================
+     USER STATISTICS
+================================================== -->
+
+
+<h3 class="section-title">
+User Statistics
+</h3>
+
+
+
+<div class="dashboard-cards">
+
+
+
+
+
+<!-- TOTAL USERS -->
+
+
+<a href="{% url 'accounts:user_list' %}"
+class="stat-card no-link-style">
+
+
+<div class="icon blue">
+
+<i class="fa-solid fa-users"></i>
+
+</div>
+
+
+
+<div>
+
+<h3>
+{{ total_users }}
+</h3>
+
+
+<p>
+Total Users
+</p>
+
+
+</div>
+
+
+</a>
+
+
+
+
+
+
+<!-- ADMINS -->
+
+
+<a href="{% url 'accounts:user_list' %}"
+class="stat-card no-link-style">
+
+
+<div class="icon purple">
+
+<i class="fa-solid fa-user-shield"></i>
+
+</div>
+
+
+
+<div>
+
+<h3>
+{{ total_admins }}
+</h3>
+
+
+<p>
+Administrators
+</p>
+
+
+</div>
+
+
+</a>
+
+
+
+
+
+
+
+<!-- LECTURER ACCOUNTS -->
+
+
+<a href="{% url 'accounts:user_list' %}"
+class="stat-card no-link-style">
+
+
+<div class="icon orange">
+
+<i class="fa-solid fa-chalkboard-user"></i>
+
+</div>
+
+
+
+<div>
+
+<h3>
+{{ total_lecturer_accounts }}
+</h3>
+
+
+<p>
+Lecturer Accounts
+</p>
+
+
+</div>
+
+
+</a>
+
+
+
+
+
+
+
+<!-- REPRESENTATIVES -->
+
+{# A count. Representatives are managed under Users. #}
+
+<a href="{% url 'accounts:user_list' %}?role=representative"
+class="stat-card no-link-style">
+
+
+<div class="icon green">
+
+<i class="fa-solid fa-user-group"></i>
+
+</div>
+
+
+
+<div>
+
+<h3>
+{{ total_representatives }}
+</h3>
+
+
+<p>
+Class Representatives
+</p>
+
+
+</div>
+
+
+</a>
+
+
+
+
+</div>
+<!-- =================================================
+     SCHEDULE MANAGEMENT
+================================================== -->
+
+
+<h3 class="section-title">
+Schedule Management
+</h3>
+
+
+
+
+<div class="dashboard-cards">
+
+
+
+
+
+<a href="{% url 'workload:lecturer_calendar' %}"
+class="stat-card no-link-style">
+
+
+<div class="icon blue">
+
+<i class="fa-solid fa-calendar-days"></i>
+
+</div>
+
+
+
+<div>
+
+<h3>
+{{ total_schedules }}
+</h3>
+
+
+<p>
+Course Schedules
+</p>
+
+
+</div>
+
+
+</a>
+
+
+
+
+
+
+
+
+<a href="{% url 'workload:assignment' %}"
+class="stat-card no-link-style">
+
+
+<div class="icon green">
+
+<i class="fa-solid fa-list-check"></i>
+
+</div>
+
+
+
+<div>
+
+<h3>
+{{ total_workloads }}
+</h3>
+
+
+<p>
+Workload Assignments
+</p>
+
+
+</div>
+
+
+</a>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- =================================================
+     ANALYTICS
+================================================== -->
+
+
+<h3 class="section-title">
+Analytics
+</h3>
+
+
+
+
+<div class="main-grid">
+
+
+
+<div class="charts">
+
+
+
+
+
+
+<div class="chart-card">
+
+
+<h3>
+Workload Distribution
+</h3>
+
+
+
+<div class="chart-container">
+
+<canvas id="workloadChart"></canvas>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="chart-card">
+
+
+<h3>
+Workload Status
+</h3>
+
+
+
+<div class="chart-container">
+
+<canvas id="statusChart"></canvas>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- =================================================
+     RECENT ACTIVITIES
+================================================== -->
+
+
+<div class="activity-card">
+
+
+<h3>
+Recent Workload Activities
+</h3>
+
+
+
+
+
+
+<div class="table-scroll">
+
+<table class="modern-table">
+
+
+<thead>
+
+<tr>
+
+<th>
+Course
+</th>
+
+
+<th>
+Lecturer
+</th>
+
+
+<th>
+Cohort
+</th>
+
+
+<th>
+Status
+</th>
+
+
+</tr>
+
+</thead>
+
+
+
+
+
+
+
+<tbody>
+
+
+
+{% for workload in recent_workloads %}
+
+
+<tr>
+
+
+<td>
+{{ workload.course.name }}
+</td>
+
+
+
+<td>
+{{ workload.lecturer.name }}
+</td>
+
+
+
+<td>
+{{ workload.cohort.name }}
+</td>
+
+
+
+<td>
+
+<span class="badge status-{{ workload.status|lower }}">
+
+{{ workload.status }}
+
+</span>
+
+
+</td>
+
+
+</tr>
+
+
+
+{% empty %}
+
+
+<tr>
+
+<td colspan="4">
+
+No workload available
+
+</td>
+
+
+</tr>
+
+
+{% endfor %}
+
+
+
+
+
+</tbody>
+
+
+</table>
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+<script>
+
+
+// ================= WORKLOAD DISTRIBUTION CHART =================
+
+
+const workloadCanvas =
+document.getElementById(
+"workloadChart"
+);
+
+
+
+if(workloadCanvas){
+
+
+new Chart(workloadCanvas,{
+
+
+type:"bar",
+
+
+data:{
+
+
+labels:[
+
+{% for item in workload_distribution %}
+
+"{{ item.faculty }}",
+
+{% endfor %}
+
+],
+
+
+
+datasets:[{
+
+
+label:"Teaching Hours",
+
+
+data:[
+
+{% for item in workload_distribution %}
+
+{{ item.hours }},
+
+{% endfor %}
+
+]
+
+
+}]
+
+
+},
+
+
+
+options:{
+
+
+responsive:true,
+
+
+maintainAspectRatio:false
+
+
+}
+
+
+});
+
+
+}
+
+
+
+
+
+
+
+
+
+// ================= WORKLOAD STATUS CHART =================
+
+
+const statusCanvas =
+document.getElementById(
+"statusChart"
+);
+
+
+
+if(statusCanvas){
+
+
+new Chart(statusCanvas,{
+
+
+type:"doughnut",
+
+
+
+data:{
+
+
+labels:[
+
+"Upcoming",
+
+"Ongoing",
+
+"Done",
+
+"Pending"
+
+],
+
+
+
+datasets:[{
+
+
+data:[
+
+{% for item in status_data %}
+
+{{ item }},
+
+{% endfor %}
+
+]
+
+
+}]
+
+
+},
+
+
+
+options:{
+
+
+responsive:true,
+
+
+maintainAspectRatio:false
+
+
+}
+
+
+});
+
+
+}
+
+
+</script>
+
+
+
+
+
+
+
+
+
+<style>
+
+
+.dashboard-wrapper a.stat-card,
+.dashboard-wrapper a.stat-card:hover,
+.dashboard-wrapper a.stat-card:visited{
+
+
+text-decoration:none;
+
+color:inherit;
+
+
+}
+
+
+
+
+.chart-container{
+
+
+height:300px;
+
+
+}
+
+
+
+
+.section-title{
+
+
+margin:25px 0 15px;
+
+
+}
+
+
+
+
+
+
+
+/* =========================================
+   WORKLOAD STATUS COLORS
+========================================= */
+
+
+.badge{
+
+
+padding:6px 12px;
+
+border-radius:15px;
+
+font-size:13px;
+
+font-weight:600;
+
+display:inline-block;
+
+
+}
+
+
+
+
+
+.status-upcoming{
+
+
+background:#fff3cd;
+
+color:#856404;
+
+
+}
+
+
+
+
+.status-ongoing{
+
+
+background:#cfe2ff;
+
+color:#084298;
+
+
+}
+
+
+
+
+.status-done{
+
+
+background:#d1e7dd;
+
+color:#0f5132;
+
+
+}
+
+
+
+
+.status-pending{
+
+
+background:#f8d7da;
+
+color:#842029;
+
+
+}
+
+
+
+
+</style>
+
+
+
+
+
+{% endblock %}

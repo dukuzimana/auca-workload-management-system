@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}
+Cohorts
+{% endblock %}
+
+
+
+{% block content %}
+
+
+
+<div class="dashboard-wrapper">
+
+
+<h2 class="page-title">
+Cohort Management
+</h2>
+
+
+
+<a href="{% url 'academics:cohort_create' %}"
+class="admin-dashboard-btn">
+
+<i class="fa-solid fa-plus"></i>
+
+Add Cohort
+
+</a>
+
+
+
+
+{% include "partials/search_box.html" %}
+
+{% if is_searching %}
+<p class="search-summary">
+Showing <strong>{{ result_count }}</strong> of {{ total_count }}
+matching &ldquo;<strong>{{ search_query }}</strong>&rdquo;.
+</p>
+{% endif %}
+
+<div class="table-scroll">
+
+<table class="modern-table">
+
+
+<tr>
+
+
+<th>
+Cohort Name
+</th>
+
+
+<th>
+Program
+</th>
+
+
+<th>
+Representative
+</th>
+
+
+<th>
+Intake Year
+</th>
+
+
+<th>
+Actions
+</th>
+
+
+</tr>
+
+
+
+{% for cohort in cohorts %}
+
+
+<tr>
+
+
+<td>
+
+{{ cohort.name }}
+
+</td>
+
+
+
+<td>
+
+{{ cohort.program.name }}
+
+</td>
+
+
+
+<td>
+
+
+{% if cohort.representative %}
+
+{{ cohort.representative.username }}
+
+    {% if not cohort.representative.email %}
+
+    <span class="status-warning">
+    No email
+    </span>
+
+    {% endif %}
+
+{% else %}
+
+<span class="status-warning">
+Not assigned
+</span>
+
+{% endif %}
+
+
+</td>
+
+
+
+<td>
+
+{{ cohort.intake_year }}
+
+</td>
+
+
+
+<td>
+
+
+
+<div class="table-actions">
+<a href="{% url 'academics:cohort_update' cohort.id %}"
+class="edit-btn">
+
+<i class="fa-solid fa-pen"></i>
+
+Edit
+
+</a>
+
+
+
+<a href="{% url 'academics:cohort_delete' cohort.id %}"
+class="delete-link">
+
+<i class="fa-solid fa-trash"></i>
+
+Delete
+
+</a>
+</div>
+
+
+
+</td>
+
+
+</tr>
+
+
+
+{% empty %}
+
+
+<tr>
+
+<td colspan="5">
+
+{% if is_searching %}
+Nothing matches &ldquo;{{ search_query }}&rdquo;.
+<a href="{{ request.path }}">Clear the search</a>
+to see all {{ total_count }}.
+{% else %}
+No cohorts available
+{% endif %}
+
+</td>
+
+</tr>
+
+
+
+{% endfor %}
+
+
+
+</table>
+
+</div>
+
+
+
+</div>
+
+
+{% endblock %}

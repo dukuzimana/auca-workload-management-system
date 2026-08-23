@@ -1,0 +1,214 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Analytics Reports
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="dashboard-wrapper">
+
+
+<h2 class="page-title">
+Analytics Reports
+</h2>
+
+
+
+<div class="dashboard-cards">
+
+
+<div class="stat-card">
+
+<div class="icon blue">
+
+<i class="fa-solid fa-list-check"></i>
+
+</div>
+
+
+<div>
+
+<h3>
+{{ total_workloads }}
+</h3>
+
+<p>
+Total Workloads
+</p>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="stat-card">
+
+<div class="icon green">
+
+<i class="fa-solid fa-circle-check"></i>
+
+</div>
+
+
+<div>
+
+<h3>
+{{ completed }}
+</h3>
+
+<p>
+Completed
+</p>
+
+</div>
+
+</div>
+
+
+
+
+
+
+<div class="stat-card">
+
+<div class="icon orange">
+
+<i class="fa-solid fa-clock"></i>
+
+</div>
+
+
+<div>
+
+<h3>
+{{ pending }}
+</h3>
+
+<p>
+Pending
+</p>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="chart-card">
+
+
+<h3>
+Workload Report Summary
+</h3>
+
+
+
+<div class="table-scroll">
+
+<table class="modern-table">
+
+
+<tr>
+
+<th>
+Course
+</th>
+
+
+<th>
+Lecturer
+</th>
+
+
+<th>
+Hours
+</th>
+
+
+<th>
+Status
+</th>
+
+
+</tr>
+
+
+
+
+{% for workload in workloads %}
+
+
+<tr>
+
+
+<td>
+{{ workload.course.name }}
+</td>
+
+
+<td>
+{{ workload.lecturer.name }}
+</td>
+
+
+<td>
+{{ workload.hours }}
+</td>
+
+
+<td>
+
+<span class="badge">
+{{ workload.status }}
+</span>
+
+</td>
+
+
+</tr>
+
+
+{% empty %}
+
+<tr>
+
+<td colspan="4">
+
+No workload data available
+
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+
+</table>
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+{% endblock %}

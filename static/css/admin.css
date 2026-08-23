@@ -1,0 +1,257 @@
+:root {
+    --auca-blue: #0056A6;
+    --auca-dark-blue: #003B73;
+    --auca-light-blue: #EAF3FB;
+}
+
+
+/* ===============================
+   ADMIN HEADER
+================================ */
+
+#header {
+    background: var(--auca-blue) !important;
+}
+
+
+/* Site title */
+
+#branding h1 {
+    color: white !important;
+}
+
+
+/* ===============================
+   SIDEBAR / MODULE HEADINGS
+================================ */
+
+.module h2,
+.module caption {
+
+    background: var(--auca-blue) !important;
+
+    color:white !important;
+
+}
+
+
+/* ===============================
+   BUTTONS
+================================ */
+
+.button,
+input[type=submit],
+input[type=button],
+.submit-row input {
+
+    background: var(--auca-blue) !important;
+
+    border-color: var(--auca-blue) !important;
+
+    color:white !important;
+
+}
+
+
+.button:hover,
+input[type=submit]:hover {
+
+    background: var(--auca-dark-blue) !important;
+
+}
+
+
+
+/* ===============================
+   TEXT INPUT FIELDS
+================================ */
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+textarea,
+select {
+
+    background-color: var(--auca-light-blue) !important;
+
+    border:1px solid #b8d6f2 !important;
+
+    border-radius:6px !important;
+
+    padding:8px !important;
+
+    color:#333 !important;
+
+}
+
+
+
+/* ===============================
+   WHEN USER CLICKS FIELD
+================================ */
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+
+
+    background:white !important;
+
+    border:2px solid var(--auca-blue) !important;
+
+    outline:none !important;
+
+}
+
+
+
+/* ===============================
+   LABELS
+================================ */
+
+.form-row label {
+
+    color:var(--auca-blue) !important;
+
+    font-weight:600;
+
+}
+
+
+
+/* ===============================
+   LINKS
+================================ */
+
+a:link,
+a:visited {
+
+    color:var(--auca-blue);
+
+}
+
+
+a:hover {
+
+    color:var(--auca-dark-blue);
+
+}
+
+
+
+/* ===============================
+   CHANGE LIST TABLE HEADER
+================================ */
+
+#changelist table thead th {
+
+    background:var(--auca-blue) !important;
+
+    color:white !important;
+
+}
+
+
+
+/* ===============================
+   SEARCH BOX
+================================ */
+
+#changelist-search input {
+
+    background:var(--auca-light-blue) !important;
+
+    border-radius:5px;
+
+}
+
+
+
+/* ===============================
+   SELECT BOXES
+================================ */
+
+select {
+
+    min-height:35px;
+
+}
+
+
+
+/* ===============================
+   ERROR MESSAGE
+================================ */
+
+.errornote {
+
+    background:#dc3545 !important;
+
+    color:white !important;
+
+}
+
+:root {
+    --auca-blue: #0056A6;
+    --auca-dark: #003B73;
+    --light-blue: #EAF3FB;
+}
+
+/* HEADER */
+#header {
+    background: var(--auca-blue) !important;
+}
+
+#branding h1 {
+    color: #fff !important;
+}
+
+/* MODULE TITLES */
+.module h2, .module caption {
+    background: var(--auca-blue) !important;
+    color: white !important;
+}
+
+/* BUTTONS */
+.button, input[type=submit], .submit-row input {
+    background: var(--auca-blue) !important;
+    color: white !important;
+    border-radius: 6px;
+}
+
+.button:hover {
+    background: var(--auca-dark) !important;
+}
+
+/* ===============================
+   ADMIN LINKS ONLY
+================================ */
+
+
+#content a,
+#content a:link,
+#content a:visited {
+
+    color:var(--auca-blue);
+
+}
+
+
+#content a:hover {
+
+    color:var(--auca-dark-blue);
+
+}
+/* TABLE HEADER */
+thead th {
+    background: var(--light-blue);
+}
+
+/* DASHBOARD */
+.dashboard .module {
+    border-left: 5px solid var(--auca-blue);
+}

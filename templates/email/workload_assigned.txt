@@ -1,0 +1,72 @@
+{{ site_name }}
+{{ faculty.name }}
+==========================================================
+
+Dear {{ recipient.name }},
+{% if role == "lecturer" %}
+{% if created %}You have been assigned the following module to teach.{% else %}Your assignment for the following module has been updated.{% endif %}
+{% else %}
+{% if created %}A module has been scheduled for your cohort, {{ cohort.name }}.{% else %}The schedule for the following module in your cohort, {{ cohort.name }}, has been updated.{% endif %}
+{% endif %}
+
+----------------------------------------------------------
+MODULE
+----------------------------------------------------------
+Course code      : {{ course.code }}
+Course name      : {{ course.name }}
+Credits          : {{ course.credits }}
+Level            : {{ course.level|default:"-" }}
+Teaching hours   : {{ workload.hours|default:"-" }}
+
+----------------------------------------------------------
+WHO AND WHERE
+----------------------------------------------------------
+{% if teaching_team|length > 1 %}Teaching team    : {{ teaching_team_names }}
+Lead lecturer    : {{ lecturer.name }}{% else %}Lecturer         : {{ lecturer.name }}{% endif %}
+Qualification    : {{ lecturer.qualification|default:"-" }}
+Employment       : {{ lecturer.employment_status|default:"-" }}
+Cohort           : {{ cohort.name }}
+Programme        : {{ program.name }}
+Faculty          : {{ faculty.name }}
+Academic period  : {{ period.academic_year }} - {{ period.semester }}
+
+----------------------------------------------------------
+SCHEDULE
+----------------------------------------------------------
+Teaching days    : {{ workload.course_days }}
+Starts           : {{ workload.start_date|date:"l, j F Y" }}
+Ends             : {% if workload.end_date %}{{ workload.end_date|date:"l, j F Y" }}{% else %}not yet determined{% endif %}
+Total sittings   : {{ total_classes }}
+Status           : {{ workload.status|default:"-" }}
+{% if schedule %}
+Class dates:
+{% for day in schedule %}  {{ forloop.counter|stringformat:"2d" }}. {{ day|date:"D, j M Y" }}
+{% endfor %}{% else %}
+No class dates could be generated. Please contact the
+academic office.
+{% endif %}{% if missed_holidays %}
+----------------------------------------------------------
+PUBLIC HOLIDAYS IN THIS BLOCK
+----------------------------------------------------------
+These fall on a teaching day. The block has been extended so
+the module still delivers all {{ total_classes }} sittings.
+{% for day, name in missed_holidays %}
+  - {{ day|date:"D, j M Y" }} - {{ name }}{% endfor %}
+{% endif %}
+----------------------------------------------------------
+YOUR ACCOUNT
+----------------------------------------------------------
+{% if role == "lecturer" %}See your full teaching workload, print it for signature,
+and check your calendar here:{% else %}See your cohort's full academic calendar and print it here:{% endif %}
+
+  {{ dashboard_url }}
+
+If you are not signed in, use this link instead. It will
+bring you back to the same page after you sign in:
+
+  {{ login_url }}
+
+----------------------------------------------------------
+Sent automatically by the {{ site_name }}
+on {{ generated_at|date:"j F Y" }} at {{ generated_at|date:"H:i" }}.
+Please do not reply to this message.

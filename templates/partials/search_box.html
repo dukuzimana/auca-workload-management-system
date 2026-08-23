@@ -1,0 +1,47 @@
+{% comment %}
+Shared search box.
+
+Included by every list screen. Renders a GET form with a single
+"q" field, so a search is just a URL the user can bookmark, share
+or reload. Any other query-string values already on the page
+(period filters, pagination) are preserved as hidden inputs so a
+search does not silently drop them.
+
+Context supplied by common.search.search_context():
+    search_query, search_param, search_placeholder, is_searching
+{% endcomment %}
+
+<form method="get" class="search-box" role="search">
+
+  {% for key, value in request.GET.items %}
+    {% if key != search_param %}
+      <input type="hidden" name="{{ key }}" value="{{ value }}">
+    {% endif %}
+  {% endfor %}
+
+  <div class="search-box-field">
+
+    <i class="fa-solid fa-magnifying-glass search-box-icon"></i>
+
+    <input type="search"
+           name="{{ search_param|default:'q' }}"
+           value="{{ search_query }}"
+           class="form-control search-box-input"
+           placeholder="{{ search_placeholder|default:'Search...' }}"
+           aria-label="{{ search_placeholder|default:'Search' }}"
+           autocomplete="off">
+
+  </div>
+
+  <button type="submit" class="admin-dashboard-btn search-box-btn">
+    Search
+  </button>
+
+  {% if is_searching %}
+    <a href="{{ request.path }}" class="search-box-clear">
+      <i class="fa-solid fa-xmark"></i>
+      Clear
+    </a>
+  {% endif %}
+
+</form>

@@ -1,0 +1,125 @@
+/* =========================
+   GLOBAL BACKGROUND
+========================= */
+
+body {
+    background-color: #f4f8fc !important;
+}
+
+/* =========================
+   NAVBAR (TOP BAR)
+========================= */
+
+.main-header.navbar {
+    background-color: #0056A6 !important;
+}
+
+/* =========================
+   SIDEBAR (AUCA MATCHED)
+========================= */
+
+.main-sidebar {
+    background-color: #0056A6 !important;  /* exact AUCA blue */
+}
+
+/* Sidebar links */
+.main-sidebar .nav-link {
+    color: #ffffff !important;
+    font-weight: 500;
+}
+
+/* Active item */
+.main-sidebar .nav-link.active {
+    background-color: #f2f4f6 !important;  /* darker AUCA blue */
+    color: #206be4 !important;
+    border-radius: 6px;
+}
+
+/* Hover effect */
+.main-sidebar .nav-link:hover {
+    background-color: #136dc7 !important;
+    color: #ffffff !important;
+}
+/* =========================
+   CONTENT AREA
+========================= */
+
+.content-wrapper {
+    background-color: #f4f8fc !important;
+}
+
+/* =========================
+   CARDS (CONTAINERS)
+========================= */
+
+.card {
+    background-color: #ffffff !important;
+    border-radius: 10px;
+    border: 1px solid #dbe6f2;
+}
+
+/* =========================
+   TABLES
+========================= */
+
+table {
+    background-color: #ffffff !important;
+}
+
+thead {
+    background-color: #0056A6 !important;
+    color: white !important;
+}
+
+/* =========================
+   FORM INPUTS
+========================= */
+
+input, select, textarea {
+    background-color: #ffffff !important;
+    border: 1px solid #ccd6e0 !important;
+    border-radius: 6px;
+}
+
+/* FOCUS */
+input:focus, select:focus, textarea:focus {
+    border-color: #0056A6 !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 86, 166, 0.2) !important;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn-primary {
+    background-color: #0056A6 !important;
+    border-color: #0056A6 !important;
+}
+
+.btn-primary:hover {
+    background-color: #004080 !important;
+}
+
+/* =========================
+   ADMIN LINKS ONLY
+========================= */
+
+.content-wrapper a {
+
+    color:#0056A6 !important;
+
+}
+
+
+.content-wrapper a:hover {
+
+    color:#003B73 !important;
+
+}
+/* =========================
+   HEADINGS
+========================= */
+
+h1, h2, h3 {
+    color: #003B73;
+}

@@ -1,0 +1,466 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Class Representative Dashboard
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="dashboard-wrapper">
+
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+
+    <h2 class="page-title">
+
+        Class Representative Dashboard
+
+    </h2>
+
+
+
+    <p class="welcome">
+
+        Cohort:
+
+        <strong>
+
+            {{ cohort.name }}
+
+        </strong>
+
+    </p>
+
+
+
+
+
+    <!-- =========================================
+         CURRENT COURSE
+    ========================================== -->
+
+
+    <h3 class="section-title">
+
+        Current Course
+
+    </h3>
+
+
+
+    <div style="margin:0 0 20px;">
+        <a href="{% url 'workload:representative_calendar_print' %}"
+           style="display:inline-block;padding:11px 20px;background:#0056A6;color:#fff;
+                  border-radius:8px;font-weight:600;text-decoration:none;font-size:14px;">
+            <i class="fa-solid fa-print"></i>&nbsp; Print academic calendar
+        </a>
+    </div>
+
+    <div class="dashboard-cards">
+
+
+        <div class="stat-card">
+
+
+            <div class="icon green">
+
+                <i class="fa-solid fa-book-open"></i>
+
+            </div>
+
+
+
+            <div>
+
+
+                {% if current_course %}
+
+
+                    <h3>
+
+                        {{ current_course.course.name }}
+
+                    </h3>
+
+
+
+                    <p>
+
+                        Lecturer:
+
+                        {{ current_course.lecturer.name }}
+
+                    </p>
+
+
+
+                {% else %}
+
+
+                    <p>
+
+                        No course currently running.
+
+                    </p>
+
+
+
+                {% endif %}
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+    <!-- =========================================
+         NEXT COURSE
+    ========================================== -->
+
+
+    <h3 class="section-title">
+
+        Next Course
+
+    </h3>
+
+
+
+    <div class="dashboard-cards">
+
+
+        <div class="stat-card">
+
+
+            <div class="icon orange">
+
+                <i class="fa-solid fa-hourglass-start"></i>
+
+            </div>
+
+
+
+            <div>
+
+
+                {% if next_course %}
+
+
+                    <h3>
+
+                        {{ next_course.course.name }}
+
+                    </h3>
+
+
+
+                    <p>
+
+                        Starts:
+
+                        {{ next_course.start_date }}
+
+                    </p>
+
+
+
+                {% else %}
+
+
+                    <p>
+
+                        No upcoming course.
+
+                    </p>
+
+
+
+                {% endif %}
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+    <!-- =========================================
+         COHORT COURSES
+    ========================================== -->
+
+
+    <h3 class="section-title">
+
+        Cohort Schedule
+
+    </h3>
+
+
+
+
+    <div class="activity-card">
+
+
+
+        {% include "partials/search_box.html" %}
+
+{% if is_searching %}
+<p class="search-summary">
+Showing <strong>{{ result_count }}</strong> of {{ total_count }}
+matching &ldquo;<strong>{{ search_query }}</strong>&rdquo;.
+</p>
+{% endif %}
+
+<div class="table-scroll">
+
+<table class="modern-table">
+
+
+
+            <thead>
+
+
+                <tr>
+
+
+                    <th>
+                        Course
+                    </th>
+
+
+                    <th>
+                        Lecturer
+                    </th>
+
+
+                    <th>
+                        Start
+                    </th>
+
+
+                    <th>
+                        End
+                    </th>
+
+
+                    <th>
+                        Status
+                    </th>
+
+
+                </tr>
+
+
+            </thead>
+
+
+
+
+
+            <tbody>
+
+
+                {% for w in workloads %}
+
+
+                <tr>
+
+
+                    <td>
+
+                        {{ w.course.name }}
+
+                    </td>
+
+
+
+                    <td>
+
+                        {{ w.lecturer.name }}
+
+                    </td>
+
+
+
+                    <td>
+
+                        {{ w.start_date }}
+
+                    </td>
+
+
+
+                    <td>
+
+                        {{ w.end_date }}
+
+                    </td>
+
+
+
+                    <td>
+
+
+                        <span class="badge">
+
+                            {{ w.status }}
+
+                        </span>
+
+
+                    </td>
+
+
+                </tr>
+
+
+
+                {% empty %}
+
+
+
+                <tr>
+
+
+                    <td colspan="5">
+
+                        {% if is_searching %}
+                        Nothing matches &ldquo;{{ search_query }}&rdquo;.
+                        <a href="{{ request.path }}">Clear the search</a>
+                        to see all {{ total_count }}.
+                        {% else %}
+                        No courses available.
+                        {% endif %}
+
+                    </td>
+
+
+                </tr>
+
+
+
+                {% endfor %}
+
+
+
+            </tbody>
+
+
+
+        </table>
+
+</div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+    <!-- =========================================
+         QUICK ACCESS
+    ========================================== -->
+
+
+    <h3 class="section-title">
+
+        Quick Access
+
+    </h3>
+
+
+
+
+    <div class="dashboard-cards">
+
+
+
+        <a href="{% url 'workload:representative_calendar' %}"
+           class="stat-card no-link-style">
+
+
+
+            <div class="icon blue">
+
+
+                <i class="fa-solid fa-calendar-days"></i>
+
+
+            </div>
+
+
+
+
+
+            <div>
+
+
+                <h3>
+
+                    View
+
+                </h3>
+
+
+
+                <p>
+
+                    Class Schedule
+
+                </p>
+
+
+
+            </div>
+
+
+
+        </a>
+
+
+
+    </div>
+
+
+
+
+
+</div>
+
+
+
+{% endblock %}

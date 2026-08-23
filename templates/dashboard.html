@@ -1,0 +1,265 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}
+Lecturer Dashboard
+{% endblock %}
+
+
+
+
+{% block content %}
+
+
+
+<div class="dashboard-wrapper">
+
+
+
+<h2 class="page-title">
+Lecturer Dashboard
+</h2>
+
+
+
+<p class="welcome">
+
+Welcome,
+
+<strong>
+{{ user.username }}
+</strong>
+
+</p>
+
+
+
+
+<div class="dashboard-cards">
+
+
+
+<div class="stat-card">
+
+
+<div class="icon blue">
+
+<i class="fa-solid fa-book"></i>
+
+</div>
+
+
+<div>
+
+<h3>
+{{ total_workloads }}
+</h3>
+
+<p>
+My Courses
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="stat-card">
+
+
+<div class="icon orange">
+
+<i class="fa-solid fa-clock"></i>
+
+</div>
+
+
+<div>
+
+<h3>
+{{ ongoing }}
+</h3>
+
+<p>
+Ongoing
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="stat-card">
+
+
+<div class="icon green">
+
+<i class="fa-solid fa-check"></i>
+
+</div>
+
+
+<div>
+
+<h3>
+{{ completed }}
+</h3>
+
+
+<p>
+Completed
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="chart-card">
+
+
+<h3>
+My Workload Assignments
+</h3>
+
+
+
+
+<div class="table-scroll">
+
+<table class="modern-table">
+
+
+<tr>
+
+<th>
+Course
+</th>
+
+
+<th>
+Cohort
+</th>
+
+
+<th>
+Hours
+</th>
+
+
+<th>
+Status
+</th>
+
+
+</tr>
+
+
+
+
+
+{% for workload in workloads %}
+
+
+<tr>
+
+
+<td>
+
+{{ workload.course.name }}
+
+</td>
+
+
+
+<td>
+
+{{ workload.cohort.name }}
+
+</td>
+
+
+
+<td>
+
+{{ workload.hours }}
+
+</td>
+
+
+
+<td>
+
+<span class="badge">
+
+{{ workload.status }}
+
+</span>
+
+</td>
+
+
+</tr>
+
+
+
+{% empty %}
+
+
+<tr>
+
+<td colspan="4">
+
+No workload assigned
+
+</td>
+
+
+</tr>
+
+
+{% endfor %}
+
+
+
+</table>
+
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,275 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+{% block title %}
+AUCA Workload Management System
+{% endblock %}
+</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link rel="stylesheet"
+href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="top-header">
+
+<div class="brand">
+
+<img src="{% static 'images/AUCA Logo.png' %}" alt="AUCA Logo">
+
+<div class="system-title">
+<h1>AUCA Workload Management System</h1>
+<p>Adventist University of Central Africa</p>
+</div>
+
+</div>
+
+<div class="user-area">
+
+<i class="fa-solid fa-circle-user"></i>
+
+<div>
+<strong>
+{% if user.is_authenticated %}
+{{ user.username }}
+{% else %}
+Guest
+{% endif %}
+</strong>
+
+<br>
+
+<small>
+{% if user.is_authenticated %}
+{{ user.role|title }}
+{% else %}
+System User
+{% endif %}
+</small>
+</div>
+
+{% if user.is_authenticated %}
+<a href="{% url 'accounts:logout' %}" class="logout-btn">
+<i class="fa fa-sign-out"></i>
+Logout
+</a>
+{% endif %}
+
+</div>
+
+</header>
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+<div class="menu-title">MAIN</div>
+
+<!-- ================= ADMIN ================= -->
+
+{% if user.is_superuser or user.role == "admin" %}
+
+<a href="{% url 'admin_dashboard' %}">
+<i class="fa fa-dashboard"></i>
+Dashboard
+</a>
+
+<a href="{% url 'admin:index' %}">
+<i class="fa fa-user-shield"></i>
+Admin Panel
+</a>
+
+<div class="menu-title">ACADEMIC MANAGEMENT</div>
+
+<a href="{% url 'academics:faculty_list' %}">
+<i class="fa fa-building"></i>
+Faculties
+</a>
+
+<a href="{% url 'academics:program_list' %}">
+<i class="fa fa-graduation-cap"></i>
+Programs
+</a>
+
+<a href="{% url 'academics:cohort_list' %}">
+<i class="fa fa-users"></i>
+Cohorts
+</a>
+
+<a href="{% url 'academics:course_list' %}">
+<i class="fa fa-book"></i>
+Courses
+</a>
+
+<a href="{% url 'academics:academic_period_list' %}">
+<i class="fa fa-calendar"></i>
+Academic Periods
+</a>
+
+<a href="{% url 'academics:holiday_list' %}">
+<i class="fa fa-calendar-xmark"></i>
+Holidays
+</a>
+
+<div class="menu-title">PEOPLE</div>
+
+<a href="{% url 'academics:lecturer_list' %}">
+<i class="fa fa-chalkboard-user"></i>
+Lecturers
+</a>
+
+<div class="menu-title">USER MANAGEMENT</div>
+
+<a href="{% url 'accounts:user_list' %}">
+<i class="fa fa-users-cog"></i>
+Users
+</a>
+
+<a href="{% url 'accounts:create_user' %}">
+<i class="fa fa-user-plus"></i>
+Create User
+</a>
+
+<div class="menu-title">WORKLOAD MANAGEMENT</div>
+
+<a href="{% url 'workload:assignment' %}">
+<i class="fa fa-list-check"></i>
+Workload Assignment
+</a>
+
+<a href="{% url 'workload:master_calendar' %}">
+<i class="fa fa-calendar"></i>
+Course Schedule
+</a>
+
+<a href="{% url 'reports' %}">
+<i class="fa fa-chart-pie"></i>
+Dashboard Reports
+</a>
+
+<a href="{% url 'reports:workload_report' %}">
+<i class="fa fa-file-lines"></i>
+Workload Report
+</a>
+
+<!-- ================= LECTURER ================= -->
+
+{% elif user.role == "lecturer" %}
+
+<a href="{% url 'workload:lecturer_dashboard' %}">
+<i class="fa fa-chalkboard-user"></i>
+My Dashboard
+</a>
+
+<a href="{% url 'workload:lecturer_calendar' %}">
+<i class="fa fa-calendar"></i>
+My Schedule
+</a>
+
+<a href="{% url 'workload:lecturer_workload_print' %}">
+<i class="fa fa-print"></i>
+Print My Workload
+</a>
+
+<!-- ================= REPRESENTATIVE ================= -->
+
+{% elif user.role == "representative" %}
+
+<a href="{% url 'workload:representative_dashboard' %}">
+<i class="fa fa-users"></i>
+Class Dashboard
+</a>
+
+<a href="{% url 'workload:representative_calendar' %}">
+<i class="fa fa-calendar"></i>
+Class Schedule
+</a>
+
+<a href="{% url 'workload:representative_calendar_print' %}">
+<i class="fa fa-print"></i>
+Print Academic Calendar
+</a>
+
+{% endif %}
+
+</aside>
+
+<!-- ================= MAIN CONTENT ================= -->
+
+<main class="content">
+
+
+{% if messages %}
+<div class="messages" role="status" aria-live="polite">
+
+  {% for message in messages %}
+
+  <div class="alert alert-{{ message.tags|default:"info" }}">
+
+    <i class="fa-solid
+       {% if message.tags == "success" %}fa-circle-check
+       {% elif message.tags == "warning" %}fa-triangle-exclamation
+       {% elif message.tags == "error" %}fa-circle-xmark
+       {% else %}fa-circle-info{% endif %}
+       alert-icon" aria-hidden="true"></i>
+
+    <span class="alert-text">{{ message }}</span>
+
+    <button type="button" class="alert-close"
+            aria-label="Dismiss">&times;</button>
+
+  </div>
+
+  {% endfor %}
+
+</div>
+{% endif %}
+
+{% block content %}
+{% endblock %}
+</main>
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+    © <span id="current-year"></span> Adventist University of Central Africa |
+    AUCA Workload Management System
+</footer>
+
+<script>
+    document.getElementById("current-year").textContent = new Date().getFullYear();
+</script>
+
+<script>
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("alert-close")) {
+    e.target.closest(".alert").remove();
+  }
+});
+
+// Success is confirmation and can fade. Warnings and errors
+// stay until dismissed -- they usually need acting on.
+setTimeout(function () {
+  document.querySelectorAll(".alert-success, .alert-info")
+    .forEach(function (el) {
+      el.classList.add("alert-leaving");
+      setTimeout(function () { el.remove(); }, 400);
+    });
+}, 6000);
+</script>
+
+</body>
+</html>

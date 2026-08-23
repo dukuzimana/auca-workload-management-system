@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Academic Periods
+{% endblock %}
+
+
+
+
+{% block content %}
+
+
+
+<h2 class="page-title">
+
+Academic Period Management
+
+</h2>
+
+
+
+
+<a href="{% url 'academics:academic_period_create' %}"
+class="admin-dashboard-btn">
+
+<i class="fa fa-calendar-plus"></i>
+
+Add Academic Period
+
+</a>
+
+
+
+
+
+{% include "partials/search_box.html" %}
+
+{% if is_searching %}
+<p class="search-summary">
+Showing <strong>{{ result_count }}</strong> of {{ total_count }}
+matching &ldquo;<strong>{{ search_query }}</strong>&rdquo;.
+</p>
+{% endif %}
+
+<div class="table-scroll">
+
+<table class="modern-table">
+
+
+<tr>
+
+<th>
+Academic Year
+</th>
+
+
+<th>
+Semester
+</th>
+
+
+<th>
+Teaching Period
+</th>
+
+
+<th>
+Start Date
+</th>
+
+
+<th>
+End Date
+</th>
+
+
+<th>
+Actions
+</th>
+
+
+</tr>
+
+
+
+
+
+{% for period in periods %}
+
+
+
+<tr>
+
+
+<td>
+
+{{ period.academic_year }}
+
+</td>
+
+
+
+
+<td>
+
+{{ period.semester }}
+
+</td>
+
+
+
+
+<td>
+
+{{ period.teaching_period }}
+
+</td>
+
+
+
+
+<td>
+
+{{ period.start_date }}
+
+</td>
+
+
+
+
+<td>
+
+{{ period.end_date }}
+
+</td>
+
+
+
+
+<td>
+
+
+
+
+<div class="table-actions">
+<a href="{% url 'academics:academic_period_update' period.id %}"
+class="edit-btn">
+
+<i class="fa-solid fa-pen"></i>
+
+Edit
+
+</a>
+
+
+
+
+<a href="{% url 'academics:academic_period_delete' period.id %}"
+class="delete-link">
+
+<i class="fa-solid fa-trash"></i>
+
+Delete
+
+</a>
+</div>
+
+
+
+</td>
+
+
+
+</tr>
+
+
+
+
+{% empty %}
+
+
+<tr>
+
+<td colspan="6">
+
+{% if is_searching %}
+Nothing matches &ldquo;{{ search_query }}&rdquo;.
+<a href="{{ request.path }}">Clear the search</a>
+to see all {{ total_count }}.
+{% else %}
+No academic periods available
+{% endif %}
+
+</td>
+
+</tr>
+
+
+{% endfor %}
+
+
+
+</table>
+
+</div>
+
+
+
+{% endblock %}

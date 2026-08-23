@@ -1,0 +1,365 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Class Schedule
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="dashboard-wrapper">
+
+
+
+    <h2 class="page-title">
+        Class Teaching Schedule
+    </h2>
+
+
+
+
+    <p class="welcome">
+
+        Cohort:
+
+        <strong>
+            {{ cohort.name }}
+        </strong>
+
+    </p>
+
+
+
+
+
+    <!-- ================= SUMMARY ================= -->
+
+
+    <h3 class="section-title">
+        Schedule Summary
+    </h3>
+
+
+
+    <div class="dashboard-cards">
+
+
+        <div class="stat-card">
+
+
+            <div class="icon blue">
+
+                <i class="fa-solid fa-calendar-days"></i>
+
+            </div>
+
+
+
+            <div>
+
+                <h3>
+                    {{ schedule_count }}
+                </h3>
+
+
+                <p>
+                    Scheduled Courses
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+    <!-- ================= TABLE ================= -->
+
+
+    <h3 class="section-title">
+        Cohort Courses
+    </h3>
+
+
+
+    <div class="activity-card">
+
+
+
+        {% include "partials/search_box.html" %}
+
+{% if is_searching %}
+<p class="search-summary">
+Showing <strong>{{ result_count }}</strong> of {{ total_count }}
+matching &ldquo;<strong>{{ search_query }}</strong>&rdquo;.
+</p>
+{% endif %}
+
+<div class="table-scroll">
+
+<table class="modern-table">
+
+
+            <thead>
+
+
+                <tr>
+
+                    <th>
+                        Course
+                    </th>
+
+
+                    <th>
+                        Lecturer
+                    </th>
+
+
+                    <th>
+                        Academic Period
+                    </th>
+
+
+                    <th>
+                        Teaching Days
+                    </th>
+
+
+                    <th>
+                        Start Date
+                    </th>
+
+
+                    <th>
+                        Generated Schedule
+                    </th>
+
+
+                    <th>
+                        Status
+                    </th>
+
+
+                </tr>
+
+
+            </thead>
+
+
+
+
+
+            <tbody>
+
+
+
+            {% for w in workloads %}
+
+
+
+                <tr>
+
+
+                    <td>
+                        {{ w.course.name }}
+                    </td>
+
+
+
+                    <td>
+                        {{ w.lecturer.name }}
+                    </td>
+
+
+
+
+                    <td>
+                        {{ w.academic_period }}
+                    </td>
+
+
+
+
+<td class="col-days">
+<div class="day-chips">
+{% for day in w.teaching_days %}
+<span class="day-chip" title="{{ day }}">{{ day|slice:":3" }}</span>
+{% empty %}
+<span class="day-chip day-chip-missing" title="No teaching days recorded">&mdash;</span>
+{% endfor %}
+</div>
+</td>
+
+
+
+
+                    <td>
+                        {{ w.start_date }}
+                    </td>
+
+
+
+
+
+                    <td>
+
+
+                        {% if w.generated_schedule %}
+
+
+                            {% for day in w.generated_schedule %}
+
+                                {{ day }}
+
+                                <br>
+
+                            {% endfor %}
+
+
+                        {% else %}
+
+                            No schedule generated
+
+
+                        {% endif %}
+
+
+                    </td>
+
+
+
+
+
+                    <td>
+
+                        <span class="badge">
+
+                            {{ w.status }}
+
+                        </span>
+
+
+                    </td>
+
+
+
+                </tr>
+
+
+
+
+            {% empty %}
+
+
+
+                <tr>
+
+                    <td colspan="7">
+
+                        {% if is_searching %}
+                        Nothing matches &ldquo;{{ search_query }}&rdquo;.
+                        <a href="{{ request.path }}">Clear the search</a>
+                        to see all {{ total_count }}.
+                        {% else %}
+                        No schedule available.
+                        {% endif %}
+
+                    </td>
+
+
+                </tr>
+
+
+
+            {% endfor %}
+
+
+
+            </tbody>
+
+
+
+        </table>
+
+</div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+    <!-- ================= BACK ================= -->
+
+
+    <h3 class="section-title">
+        Navigation
+    </h3>
+
+
+
+
+    <div class="dashboard-cards">
+
+
+
+        <a href="{% url 'workload:representative_dashboard' %}"
+           class="stat-card no-link-style">
+
+
+
+            <div class="icon green">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+            </div>
+
+
+
+
+            <div>
+
+                <h3>
+                    Back
+                </h3>
+
+
+                <p>
+                    Dashboard
+                </p>
+
+
+            </div>
+
+
+
+        </a>
+
+
+
+    </div>
+
+
+
+
+
+</div>
+
+
+
+{% endblock %}

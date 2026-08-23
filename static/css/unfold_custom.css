@@ -1,0 +1,318 @@
+/* =====================================================
+   AUCA WORKLOAD MANAGEMENT SYSTEM
+   DJANGO UNFOLD CUSTOM THEME
+===================================================== */
+
+
+/* ===============================
+   GLOBAL COLORS
+================================ */
+
+body {
+
+    font-family:
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+}
+
+
+
+/* ===============================
+   HEADER
+================================ */
+
+#header {
+
+    background:#0056A6 !important;
+
+}
+
+
+
+#header h1 {
+
+    color:white !important;
+
+}
+
+
+
+/* ===============================
+   SIDEBAR
+================================ */
+
+aside {
+
+    background:#0056A6 !important;
+
+}
+
+
+
+aside a {
+
+    color:white !important;
+
+}
+
+
+
+aside a:hover {
+
+    background:#003B73 !important;
+
+}
+
+
+
+/* ===============================
+   PAGE TITLES
+================================ */
+
+h1,
+h2,
+h3 {
+
+    color:#003B73 !important;
+
+}
+
+
+
+/* ===============================
+   FORM LABELS
+================================ */
+
+label {
+
+    color:#003B73 !important;
+
+    font-weight:600 !important;
+
+}
+
+
+
+/* ===============================
+   TEXT INPUT FIELDS
+================================ */
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="url"],
+input[type="date"],
+textarea,
+select {
+
+
+    background:white !important;
+
+
+    color:#333 !important;
+
+
+    border:
+
+    1px solid #0056A6 !important;
+
+
+    border-radius:
+
+    8px !important;
+
+
+    padding:
+
+    10px !important;
+
+
+}
+
+
+
+/* ===============================
+   INPUT FOCUS
+================================ */
+
+
+input:focus,
+textarea:focus,
+select:focus {
+
+
+    border:
+
+    2px solid #0056A6 !important;
+
+
+    outline:none !important;
+
+
+    box-shadow:
+
+    0 0 5px rgba(0,86,166,.35) !important;
+
+
+}
+
+
+
+/* ===============================
+   SELECT DROPDOWN
+================================ */
+
+select {
+
+
+    min-height:
+
+    40px !important;
+
+}
+
+
+
+/* ===============================
+   BUTTONS
+================================ */
+
+
+button,
+input[type="submit"],
+input[type="button"] {
+
+
+    background:#0056A6 !important;
+
+
+    color:white !important;
+
+
+    border-radius:
+
+    8px !important;
+
+
+}
+
+
+
+button:hover,
+input[type="submit"]:hover {
+
+
+    background:#003B73 !important;
+
+
+}
+
+
+
+/* ===============================
+   SAVE BUTTON AREA
+================================ */
+
+
+.submit-row {
+
+
+    background:#EAF3FB !important;
+
+
+}
+
+
+
+/* ===============================
+   TABLE HEADER
+================================ */
+
+
+thead th {
+
+
+    background:#0056A6 !important;
+
+
+    color:white !important;
+
+
+}
+
+
+
+/* ===============================
+   TABLE ROWS
+================================ */
+
+
+tbody tr:hover {
+
+
+    background:#EAF3FB !important;
+
+
+}
+
+
+
+/* ===============================
+   SEARCH BOX
+================================ */
+
+
+input[type="search"] {
+
+
+    background:white !important;
+
+
+    border:
+
+    1px solid #0056A6 !important;
+
+
+}
+
+
+
+/* ===============================
+   CARDS / MODULES
+================================ */
+
+
+.bg-white {
+
+
+    border-radius:
+
+    12px !important;
+
+
+}
+
+
+
+/* ===============================
+   UNFOLD ADMIN LINKS ONLY
+================================ */
+
+
+#content a,
+#content a:link,
+#content a:visited {
+
+    color:#0056A6 !important;
+
+}
+
+
+#content a:hover {
+
+    color:#003B73 !important;
+
+}

@@ -1,0 +1,112 @@
+{% extends "print/base_print.html" %}
+
+{% block doc_title %}Workload Report{% endblock %}
+
+{% block page_orientation %}landscape{% endblock %}
+
+{% block back_url %}{% url 'reports:workload_report' %}?{{ query_string }}{% endblock %}
+
+{% block unit %}Office of Academic Affairs{% endblock %}
+
+{% block heading %}Teaching Workload Report{% endblock %}
+
+{% block subheading %}
+{% if applied %}
+    Filtered by
+    {% for label, value in applied %}{{ label }}: {{ value }}{% if not forloop.last %} &middot; {% endif %}{% endfor %}
+{% else %}
+    All teaching workloads, unfiltered
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<table class="meta">
+    <tr>
+        <td class="k">Assignments</td>
+        <td class="v">{{ workloads|length }}</td>
+        <td class="k">Distinct courses</td>
+        <td class="v">{{ total_courses }}</td>
+    </tr>
+    <tr>
+        <td class="k">Lecturers</td>
+        <td class="v">{{ total_lecturers }}</td>
+        <td class="k">Cohorts</td>
+        <td class="v">{{ total_cohorts }}</td>
+    </tr>
+    <tr>
+        <td class="k">Total credit hours</td>
+        <td class="v">{{ total_hours }}</td>
+        <td class="k">Total sittings</td>
+        <td class="v">{{ total_sessions }}</td>
+    </tr>
+</table>
+
+{% if workloads %}
+
+<table class="data">
+    <thead>
+        <tr>
+            <th style="width:4%">#</th>
+            <th style="width:11%">Period</th>
+            <th style="width:9%">Cohort</th>
+            <th style="width:9%">Code</th>
+            <th>Module</th>
+            <th style="width:16%">Lecturer</th>
+            <th style="width:11%">Days</th>
+            <th style="width:8%">Start</th>
+            <th style="width:8%">End</th>
+            <th class="num" style="width:5%">Hrs</th>
+            <th style="width:8%">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for w in workloads %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ w.academic_period.academic_year }}<br>{{ w.academic_period.semester }}</td>
+            <td>{{ w.cohort.name }}</td>
+            <td>{{ w.course.code }}</td>
+            <td>{{ w.course.name }}</td>
+            <td>{{ w.lecturer.name }}</td>
+            <td>{{ w.course_days }}</td>
+            <td>{{ w.start_date|date:"d M Y" }}</td>
+            <td>{{ w.end_date|date:"d M Y"|default:"—" }}</td>
+            <td class="num">{{ w.hours|default:0 }}</td>
+            <td><span class="pill {{ w.status }}">{{ w.status }}</span></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="9">Total credit hours</td>
+            <td class="num">{{ total_hours }}</td>
+            <td></td>
+        </tr>
+    </tfoot>
+</table>
+
+<div class="signatures">
+    <div>
+        Prepared by
+        <div class="sig-line">Signature &amp; date</div>
+    </div>
+    <div>
+        Dean of Faculty
+        <div class="sig-line">Signature &amp; date</div>
+    </div>
+    <div>
+        Academic Registrar
+        <div class="sig-line">Signature &amp; date</div>
+    </div>
+</div>
+
+{% else %}
+
+<div class="empty">
+    No workload assignments match these filters.
+</div>
+
+{% endif %}
+
+{% endblock %}

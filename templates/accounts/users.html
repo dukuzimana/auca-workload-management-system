@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Users
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="dashboard-wrapper">
+
+
+<h2 class="page-title">
+
+User Management
+
+</h2>
+
+
+<!-- ================= ACTION BUTTONS ================= -->
+
+
+<a href="{% url 'accounts:create_user' %}"
+class="admin-dashboard-btn">
+
+
+<i class="fa-solid fa-user-plus"></i>
+
+
+Create User
+
+
+</a>
+
+
+{# Role tabs: plain ?role= links, so a filtered view is a URL. #}
+
+<div class="filter-tabs">
+
+<a href="{% url 'accounts:user_list' %}"
+class="filter-tab{% if not selected_role %} is-active{% endif %}">
+All
+</a>
+
+{% for value, label in role_choices %}
+
+<a href="?role={{ value }}"
+class="filter-tab{% if selected_role == value %} is-active{% endif %}">
+{{ label }}
+</a>
+
+{% endfor %}
+
+</div>
+
+{% include "partials/search_box.html" %}
+
+{% if is_searching %}
+<p class="search-summary">
+Showing <strong>{{ result_count }}</strong> of {{ total_count }}
+matching &ldquo;<strong>{{ search_query }}</strong>&rdquo;.
+</p>
+{% endif %}
+
+<div class="table-scroll">
+
+<table class="modern-table">
+
+
+<tr>
+
+
+<th>
+Username
+</th>
+
+
+<th>
+Email
+</th>
+
+
+<th>
+Role
+</th>
+
+
+<th>
+Status
+</th>
+
+
+<th>
+Actions
+</th>
+
+
+</tr>
+
+
+{% for user in users %}
+
+
+<tr>
+
+
+<td>
+
+{{ user.username }}
+
+</td>
+
+
+<td>
+
+{{ user.email }}
+
+</td>
+
+
+<td>
+
+
+<span class="badge">
+
+{{ user.role|title }}
+
+</span>
+
+
+</td>
+
+
+<td>
+
+
+{% if user.is_active %}
+
+
+<span class="badge">
+
+Active
+
+</span>
+
+
+{% else %}
+
+
+<span class="badge">
+
+Inactive
+
+</span>
+
+
+{% endif %}
+
+
+</td>
+
+
+<td>
+
+
+
+<div class="table-actions">
+<a href="{% url 'accounts:update_user' user.id %}"
+class="edit-btn">
+
+
+<i class="fa-solid fa-pen"></i>
+
+
+Edit
+
+
+</a>
+
+
+<a href="{% url 'accounts:delete_user' user.id %}"
+class="delete-link">
+
+
+<i class="fa-solid fa-trash"></i>
+
+
+Delete
+
+
+</a>
+</div>
+
+
+</td>
+
+
+</tr>
+
+
+{% empty %}
+
+
+<tr>
+
+
+<td colspan="5">
+
+
+{% if is_searching %}
+Nothing matches &ldquo;{{ search_query }}&rdquo;.
+<a href="{{ request.path }}">Clear the search</a>
+to see all {{ total_count }}.
+{% else %}
+No users available.
+{% endif %}
+
+
+</td>
+
+
+</tr>
+
+
+{% endfor %}
+
+
+</table>
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

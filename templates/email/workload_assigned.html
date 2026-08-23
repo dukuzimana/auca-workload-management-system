@@ -1,0 +1,380 @@
+{% comment %}
+HTML body for the assignment notification.
+
+Written for email clients, not browsers: table layout, inline
+styles, no external stylesheet and no web fonts. Outlook
+ignores most of a <style> block, so anything that matters is
+set on the element itself. It carries exactly the same facts
+as workload_assigned.txt.
+{% endcomment %}<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ course.code }} {{ course.name }}</title>
+</head>
+
+<body style="margin:0; padding:0; background:#f5f8fc;">
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f5f8fc; padding:24px 12px;">
+<tr>
+<td align="center">
+
+<table role="presentation" width="640" cellpadding="0" cellspacing="0" border="0" style="width:640px; max-width:100%; background:#ffffff; border:1px solid #e3e9f0; border-radius:10px; overflow:hidden; font-family:'Segoe UI', Arial, sans-serif; color:#333333;">
+
+
+<!-- ================= HEADER ================= -->
+
+<tr>
+<td style="background:#0056A6; padding:22px 28px;">
+
+<div style="color:#ffffff; font-size:18px; font-weight:700; line-height:1.3;">
+{{ site_name }}
+</div>
+
+<div style="color:#D5E9F8; font-size:13px; margin-top:4px;">
+{{ faculty.name }}
+</div>
+
+</td>
+</tr>
+
+
+<!-- ================= INTRO ================= -->
+
+<tr>
+<td style="padding:26px 28px 6px;">
+
+<p style="margin:0 0 14px; font-size:15px;">
+Dear {{ recipient.name }},
+</p>
+
+<p style="margin:0 0 18px; font-size:15px; line-height:1.55;">
+{% if role == "lecturer" %}
+{% if created %}
+You have been assigned the following module to teach.
+{% else %}
+Your assignment for the following module has been updated.
+{% endif %}
+{% else %}
+{% if created %}
+A module has been scheduled for your cohort,
+<strong>{{ cohort.name }}</strong>.
+{% else %}
+The schedule for the following module in your cohort,
+<strong>{{ cohort.name }}</strong>, has been updated.
+{% endif %}
+{% endif %}
+</p>
+
+<div style="background:#EAF3FB; border-left:4px solid #0056A6; border-radius:6px; padding:14px 16px; margin-bottom:8px;">
+
+<div style="font-size:12px; color:#0056A6; font-weight:600; letter-spacing:.4px; text-transform:uppercase;">
+{{ course.code }}
+</div>
+
+<div style="font-size:18px; font-weight:700; color:#003B73; margin-top:3px;">
+{{ course.name }}
+</div>
+
+<div style="font-size:13px; color:#42505f; margin-top:6px;">
+{{ cohort.name }} &middot;
+{{ workload.start_date|date:"j M Y" }}
+{% if workload.end_date %}&ndash; {{ workload.end_date|date:"j M Y" }}{% endif %}
+</div>
+
+</div>
+
+</td>
+</tr>
+
+
+<!-- ================= MODULE ================= -->
+
+<tr>
+<td style="padding:16px 28px 0;">
+
+<h3 style="margin:0 0 10px; font-size:13px; color:#0056A6; text-transform:uppercase; letter-spacing:.5px;">
+Module
+</h3>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-size:14px; border-collapse:collapse;">
+
+<tr>
+<td style="padding:7px 0; color:#6b7684; width:170px; border-bottom:1px solid #eef2f7;">Course code</td>
+<td style="padding:7px 0; border-bottom:1px solid #eef2f7;">{{ course.code }}</td>
+</tr>
+
+<tr>
+<td style="padding:7px 0; color:#6b7684; border-bottom:1px solid #eef2f7;">Course name</td>
+<td style="padding:7px 0; border-bottom:1px solid #eef2f7;">{{ course.name }}</td>
+</tr>
+
+<tr>
+<td style="padding:7px 0; color:#6b7684; border-bottom:1px solid #eef2f7;">Credits</td>
+<td style="padding:7px 0; border-bottom:1px solid #eef2f7;">{{ course.credits }}</td>
+</tr>
+
+<tr>
+<td style="padding:7px 0; color:#6b7684; border-bottom:1px solid #eef2f7;">Level</td>
+<td style="padding:7px 0; border-bottom:1px solid #eef2f7;">{{ course.level|default:"&ndash;" }}</td>
+</tr>
+
+<tr>
+<td style="padding:7px 0; color:#6b7684; border-bottom:1px solid #eef2f7;">Teaching hours</td>
+<td style="padding:7px 0; border-bottom:1px solid #eef2f7;">{{ workload.hours|default:"&ndash;" }}</td>
+</tr>
+
+</table>
+
+</td>
+</tr>
+
+
+<!-- ================= WHO AND WHERE ================= -->
+
+<tr>
+<td style="padding:22px 28px 0;">
+
+<h3 style="margin:0 0 10px; font-size:13px; color:#0056A6; text-transform:uppercase; letter-spacing:.5px;">
+Who and where
+</h3>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-size:14px; border-collapse:collapse;">
+
+{% if teaching_team|length > 1 %}
+<tr>
+<td style="padding:7px 0; color:#6b7684; width:170px; border-bottom:1px solid #eef2f7;">Teaching team</td>
+<td style="padding:7px 0; border-bottom:1px solid #eef2f7;">{{ teaching_team_names }}</td>
+</tr>
+
+<tr>
+<td style="padding:7px 0; color:#6b7684; border-bottom:1px solid #eef2f7;">Lead lecturer</td>
+<td style="padding:7px 0; border-bottom:1px solid #eef2f7;">{{ lecturer.name }}</td>
+</tr>
+{% else %}
+<tr>
+<td style="padding:7px 0; color:#6b7684; width:170px; border-bottom:1px solid #eef2f7;">Lecturer</td>
+<td style="padding:7px 0; border-bottom:1px solid #eef2f7;">{{ lecturer.name }}</td>
+</tr>
+{% endif %}
+
+<tr>
+<td style="padding:7px 0; color:#6b7684; border-bottom:1px solid #eef2f7;">Qualification</td>
+<td style="padding:7px 0; border-bottom:1px solid #eef2f7;">{{ lecturer.qualification|default:"&ndash;" }}</td>
+</tr>
+
+<tr>
+<td style="padding:7px 0; color:#6b7684; border-bottom:1px solid #eef2f7;">Employment</td>
+<td style="padding:7px 0; border-bottom:1px solid #eef2f7;">{{ lecturer.employment_status|default:"&ndash;" }}</td>
+</tr>
+
+<tr>
+<td style="padding:7px 0; color:#6b7684; border-bottom:1px solid #eef2f7;">Cohort</td>
+<td style="padding:7px 0; border-bottom:1px solid #eef2f7;">{{ cohort.name }}</td>
+</tr>
+
+<tr>
+<td style="padding:7px 0; color:#6b7684; border-bottom:1px solid #eef2f7;">Programme</td>
+<td style="padding:7px 0; border-bottom:1px solid #eef2f7;">{{ program.name }}</td>
+</tr>
+
+<tr>
+<td style="padding:7px 0; color:#6b7684; border-bottom:1px solid #eef2f7;">Faculty</td>
+<td style="padding:7px 0; border-bottom:1px solid #eef2f7;">{{ faculty.name }}</td>
+</tr>
+
+<tr>
+<td style="padding:7px 0; color:#6b7684; border-bottom:1px solid #eef2f7;">Academic period</td>
+<td style="padding:7px 0; border-bottom:1px solid #eef2f7;">{{ period.academic_year }} &ndash; {{ period.semester }}</td>
+</tr>
+
+</table>
+
+</td>
+</tr>
+
+
+<!-- ================= SCHEDULE ================= -->
+
+<tr>
+<td style="padding:22px 28px 0;">
+
+<h3 style="margin:0 0 10px; font-size:13px; color:#0056A6; text-transform:uppercase; letter-spacing:.5px;">
+Schedule
+</h3>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-size:14px; border-collapse:collapse;">
+
+<tr>
+<td style="padding:7px 0; color:#6b7684; width:170px; border-bottom:1px solid #eef2f7;">Teaching days</td>
+<td style="padding:7px 0; border-bottom:1px solid #eef2f7;">{{ workload.course_days }}</td>
+</tr>
+
+<tr>
+<td style="padding:7px 0; color:#6b7684; border-bottom:1px solid #eef2f7;">Starts</td>
+<td style="padding:7px 0; border-bottom:1px solid #eef2f7;">{{ workload.start_date|date:"l, j F Y" }}</td>
+</tr>
+
+<tr>
+<td style="padding:7px 0; color:#6b7684; border-bottom:1px solid #eef2f7;">Ends</td>
+<td style="padding:7px 0; border-bottom:1px solid #eef2f7;">{% if workload.end_date %}{{ workload.end_date|date:"l, j F Y" }}{% else %}Not yet determined{% endif %}</td>
+</tr>
+
+<tr>
+<td style="padding:7px 0; color:#6b7684; border-bottom:1px solid #eef2f7;">Total sittings</td>
+<td style="padding:7px 0; border-bottom:1px solid #eef2f7;">{{ total_classes }}</td>
+</tr>
+
+<tr>
+<td style="padding:7px 0; color:#6b7684; border-bottom:1px solid #eef2f7;">Status</td>
+<td style="padding:7px 0; border-bottom:1px solid #eef2f7;">{{ workload.status|default:"&ndash;" }}</td>
+</tr>
+
+</table>
+
+</td>
+</tr>
+
+
+<!-- ================= CLASS DATES ================= -->
+
+<tr>
+<td style="padding:20px 28px 0;">
+
+{% if schedule %}
+
+<h3 style="margin:0 0 10px; font-size:13px; color:#0056A6; text-transform:uppercase; letter-spacing:.5px;">
+Class dates
+</h3>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-size:13px; border-collapse:collapse; border:1px solid #e3e9f0; border-radius:8px;">
+
+<tr>
+<th align="left" style="background:#0056A6; color:#ffffff; padding:8px 10px; font-size:12px; font-weight:600; width:52px;">#</th>
+<th align="left" style="background:#0056A6; color:#ffffff; padding:8px 10px; font-size:12px; font-weight:600;">Date</th>
+</tr>
+
+{% for day in schedule %}
+<tr style="background:{% cycle '#ffffff' '#f7fafd' %};">
+<td style="padding:7px 10px; border-top:1px solid #eef2f7; color:#6b7684;">{{ forloop.counter }}</td>
+<td style="padding:7px 10px; border-top:1px solid #eef2f7;">{{ day|date:"l, j F Y" }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+{% else %}
+
+<div style="background:#fdeceb; border:1px solid #f5c6c4; border-radius:8px; padding:14px 16px; font-size:14px; color:#7a1f1f;">
+No class dates could be generated for this module. Please
+contact the academic office.
+</div>
+
+{% endif %}
+
+</td>
+</tr>
+
+
+<!-- ================= HOLIDAYS ================= -->
+
+{% if missed_holidays %}
+<tr>
+<td style="padding:20px 28px 0;">
+
+<h3 style="margin:0 0 8px; font-size:13px; color:#0056A6; text-transform:uppercase; letter-spacing:.5px;">
+Public holidays in this block
+</h3>
+
+<p style="margin:0 0 10px; font-size:13px; color:#6b7684; line-height:1.5;">
+These fall on a teaching day. The block has been extended so
+the module still delivers all {{ total_classes }} sittings.
+</p>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-size:13px; border-collapse:collapse; background:#fdf3e0; border:1px solid #f3e0bc; border-radius:8px;">
+
+{% for day, name in missed_holidays %}
+<tr>
+<td style="padding:8px 12px; color:#8a5a00; width:170px;">{{ day|date:"D, j M Y" }}</td>
+<td style="padding:8px 12px; color:#8a5a00;">{{ name }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</td>
+</tr>
+{% endif %}
+
+
+<!-- ================= ACCOUNT LINK ================= -->
+
+<tr>
+<td style="padding:24px 28px 4px;">
+
+<div style="border-top:1px solid #eef2f7; padding-top:20px;">
+
+<h3 style="margin:0 0 8px; font-size:13px; color:#0056A6; text-transform:uppercase; letter-spacing:.5px;">
+Your account
+</h3>
+
+<p style="margin:0 0 16px; font-size:14px; line-height:1.55; color:#42505f;">
+{% if role == "lecturer" %}
+See your full teaching workload, print it for signature, and
+check your calendar in your account.
+{% else %}
+See your cohort's full academic calendar and print it from
+your account.
+{% endif %}
+</p>
+
+<table role="presentation" cellpadding="0" cellspacing="0" border="0">
+<tr>
+<td style="background:#0056A6; border-radius:8px;">
+<a href="{{ dashboard_url }}"
+   style="display:inline-block; padding:12px 26px; color:#ffffff; font-size:14px; font-weight:600; text-decoration:none;">
+{% if role == "lecturer" %}Open my workload{% else %}Open our calendar{% endif %}
+</a>
+</td>
+</tr>
+</table>
+
+<p style="margin:16px 0 0; font-size:12px; color:#8a94a0; line-height:1.6;">
+If you are not signed in, use
+<a href="{{ login_url }}" style="color:#0056A6;">this link</a>
+instead &mdash; it brings you back to the same page after you
+sign in. If the buttons do not work, copy this address into
+your browser:<br>
+<span style="color:#6b7684; word-break:break-all;">{{ dashboard_url }}</span>
+</p>
+
+</div>
+
+</td>
+</tr>
+
+
+<!-- ================= FOOTER ================= -->
+
+<tr>
+<td style="padding:22px 28px 26px;">
+
+<div style="border-top:1px solid #eef2f7; padding-top:14px; font-size:12px; color:#8a94a0; line-height:1.6;">
+Sent automatically by the {{ site_name }} on
+{{ generated_at|date:"j F Y" }} at {{ generated_at|date:"H:i" }}.
+Please do not reply to this message.
+</div>
+
+</td>
+</tr>
+
+
+</table>
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>

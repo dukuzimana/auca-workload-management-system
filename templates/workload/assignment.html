@@ -1,0 +1,718 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Workload Assignment
+{% endblock %}
+
+
+
+{% block content %}
+
+
+
+<div class="dashboard-wrapper">
+
+
+
+<h2 class="page-title">
+    Workload Assignment
+</h2>
+
+
+
+
+
+<!-- ================= ASSIGNMENT FORM ================= -->
+
+
+<div class="chart-card">
+
+
+<h3>
+    Assign New Teaching Workload
+</h3>
+
+
+
+
+
+<form method="POST">
+
+
+{% csrf_token %}
+
+
+
+
+
+{% if form.errors %}
+
+
+{#
+   {{ form.errors }} printed the raw dict -- field names run
+   together with their messages and no spacing, which reads as
+   "cohortThis field is required." Listing them with their
+   labels says which control to go and fix.
+#}
+<div class="alert alert-danger">
+
+<i class="fa-solid fa-circle-xmark alert-icon" aria-hidden="true"></i>
+
+<span class="alert-text">
+
+<strong>The workload was not assigned.</strong>
+Please correct the following:
+
+<ul class="alert-list">
+
+{% for field in form %}
+  {% for error in field.errors %}
+  <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+  {% endfor %}
+{% endfor %}
+
+{% for error in form.non_field_errors %}
+<li>{{ error }}</li>
+{% endfor %}
+
+</ul>
+
+</span>
+
+</div>
+
+
+{% endif %}
+
+
+
+
+
+<div class="form-grid">
+
+
+
+<div>
+
+<label>
+Cohort
+</label>
+
+{{ form.cohort }}
+
+</div>
+
+
+
+
+
+<div>
+
+<label>
+Academic Period
+</label>
+
+{{ form.academic_period }}
+
+</div>
+
+
+
+
+
+<div>
+
+<label>
+Lecturer
+</label>
+
+{{ form.lecturer }}
+
+</div>
+
+
+
+
+
+<div>
+
+<label>
+Course
+</label>
+
+{{ form.course }}
+
+</div>
+
+
+
+
+
+<div>
+
+<label>
+Start Date
+</label>
+
+{{ form.start_date }}
+
+</div>
+
+
+
+
+
+<div>
+
+<label>
+Teaching Days
+</label>
+
+{{ form.course_days }}
+
+</div>
+
+
+
+
+
+<div>
+
+<label>
+Co-lecturers <span class="field-optional">(optional)</span>
+</label>
+
+{{ form.co_lecturers }}
+
+<small class="field-help">
+Hold Ctrl (Cmd on a Mac) to select more than one.
+They are emailed alongside the lead lecturer.
+</small>
+
+</div>
+
+
+
+
+
+<div>
+
+<label>
+Duration in weeks <span class="field-optional">(optional)</span>
+</label>
+
+{{ form.duration_weeks }}
+
+<small class="field-help">
+Leave blank for the standard block length.
+Set it for Internship and Thesis, which run a full term.
+</small>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<br>
+
+
+
+
+
+<button type="submit" class="btn-primary">
+
+<i class="fa-solid fa-plus"></i>
+
+Assign Workload
+
+</button>
+
+
+
+
+
+</form>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- ================= WORKLOAD TABLE ================= -->
+
+
+
+<div class="chart-card">
+
+
+
+<div class="page-header">
+
+
+<h3>
+Assigned Teaching Workload
+</h3>
+
+
+
+
+<a href="{% url 'workload:workload_list' %}" 
+   class="btn-primary">
+
+
+<i class="fa-solid fa-list"></i>
+
+Manage All
+
+
+</a>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+{% include "partials/search_box.html" %}
+
+{% if is_searching %}
+<p class="search-summary">
+Showing <strong>{{ result_count }}</strong> of {{ total_count }}
+matching &ldquo;<strong>{{ search_query }}</strong>&rdquo;.
+</p>
+{% endif %}
+
+<div class="table-scroll">
+
+<table class="modern-table table-sticky-actions">
+
+
+
+<thead>
+
+
+<tr>
+
+
+<th>
+Course
+</th>
+
+
+<th>
+Lecturer
+</th>
+
+
+<th>
+Cohort
+</th>
+
+
+<th>
+Academic Period
+</th>
+
+
+<th class="col-days">
+Days
+</th>
+
+
+<th>
+Hours
+</th>
+
+
+<th>
+Start Date
+</th>
+
+
+<th>
+End Date
+</th>
+
+
+<th>
+Status
+</th>
+
+
+<th>
+Actions
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+
+
+
+
+<tbody>
+
+
+
+
+
+{% for workload in workloads %}
+
+
+
+
+<tr>
+
+
+
+
+
+<td>
+
+{{ workload.course.name }}
+
+</td>
+
+
+
+
+
+
+
+
+
+<td>
+
+
+{% if workload.lecturer.user %}
+
+{{ workload.lecturer.user.get_full_name|default:workload.lecturer.user.username }}
+
+
+{% else %}
+
+{{ workload.lecturer.name }}
+
+
+{% endif %}
+
+
+</td>
+
+
+
+
+
+
+
+
+
+<td>
+
+{{ workload.cohort.name }}
+
+</td>
+
+
+
+
+
+
+
+
+
+<td>
+
+{{ workload.academic_period }}
+
+</td>
+
+
+
+
+
+
+
+
+
+<td class="col-days">
+
+<div class="day-chips">
+
+{% for day in workload.teaching_days %}
+<span class="day-chip" title="{{ day }}">{{ day|slice:":3" }}</span>
+{% empty %}
+<span class="day-chip day-chip-missing" title="No teaching days recorded">
+&mdash;
+</span>
+{% endfor %}
+
+</div>
+
+</td>
+
+
+
+
+
+
+
+
+
+<td>
+
+{{ workload.hours }}
+
+</td>
+
+
+
+
+
+
+
+
+
+<td>
+
+{{ workload.start_date }}
+
+</td>
+
+
+
+
+
+
+
+
+
+<td>
+
+{{ workload.end_date }}
+
+</td>
+
+
+
+
+
+
+
+
+
+<td>
+
+
+{% if workload.status == "Done" %}
+
+<span class="badge badge-success">
+{{ workload.status }}
+</span>
+
+
+{% elif workload.status == "Ongoing" %}
+
+<span class="badge badge-warning">
+{{ workload.status }}
+</span>
+
+
+{% elif workload.status == "Upcoming" %}
+
+<span class="badge badge-info">
+{{ workload.status }}
+</span>
+
+
+{% else %}
+
+<span class="badge badge-danger">
+{{ workload.status }}
+</span>
+
+
+{% endif %}
+
+
+</td>
+
+
+
+
+
+
+
+
+
+<td>
+
+
+
+<div class="table-actions">
+
+
+
+
+
+
+<a href="{% url 'workload:workload_detail' workload.id %}"
+   class="view-btn">
+
+
+<i class="fa-solid fa-eye"></i>
+
+View
+
+
+</a>
+
+
+
+
+
+
+
+
+<a href="{% url 'workload:workload_update' workload.id %}"
+   class="edit-btn">
+
+
+<i class="fa-solid fa-pen"></i>
+
+Edit
+
+
+</a>
+
+
+
+
+
+
+
+
+
+<a href="{% url 'workload:workload_delete' workload.id %}"
+   class="delete-link">
+
+
+<i class="fa-solid fa-trash"></i>
+
+Delete
+
+
+</a>
+
+
+
+
+
+
+</div>
+
+
+
+</td>
+
+
+
+
+
+
+
+
+</tr>
+
+
+
+
+
+
+
+
+
+{% empty %}
+
+
+
+
+
+<tr>
+
+
+<td colspan="10" class="empty-message">
+
+
+{% if is_searching %}
+Nothing matches &ldquo;{{ search_query }}&rdquo;.
+<a href="{{ request.path }}">Clear the search</a>
+to see all {{ total_count }}.
+{% else %}
+No workload assignment available.
+{% endif %}
+
+
+</td>
+
+
+</tr>
+
+
+
+
+
+{% endfor %}
+
+
+
+
+
+</tbody>
+
+
+
+
+</table>
+
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+{% endblock %}

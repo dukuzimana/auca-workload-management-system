@@ -1,0 +1,165 @@
+{% extends "print/base_print.html" %}
+
+{% block doc_title %}Academic Calendar - {{ cohort.name|default:"Cohort" }}{% endblock %}
+
+{% block back_url %}{% url 'workload:representative_dashboard' %}{% endblock %}
+
+{% block toolbar %}
+<form method="get">
+    <label for="period">Academic period</label>
+    <select name="period" id="period" onchange="this.form.submit()">
+        <option value="">All periods</option>
+        {% for p in periods %}
+            <option value="{{ p.pk }}" {% if selected_period and selected_period.pk == p.pk %}selected{% endif %}>
+                {{ p.academic_year }} &mdash; {{ p.semester }}
+            </option>
+        {% endfor %}
+    </select>
+    <noscript><button class="btn ghost" type="submit">Apply</button></noscript>
+</form>
+{% endblock %}
+
+{% block heading %}Cohort Academic Calendar{% endblock %}
+
+{% block subheading %}
+{% if selected_period %}
+    {{ selected_period.academic_year }} &middot; {{ selected_period.semester }}
+    {% if selected_period.teaching_period %}&middot; {{ selected_period.teaching_period }}{% endif %}
+{% else %}
+    All academic periods on record
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<table class="meta">
+    <tr>
+        <td class="k">Cohort</td>
+        <td class="v">{{ cohort.name|default:"—" }}</td>
+    </tr>
+    <tr>
+        <td class="k">Programme</td>
+        <td class="v">{{ cohort.program.name|default:"—" }}</td>
+    </tr>
+    <tr>
+        <td class="k">Intake year</td>
+        <td class="v">{{ cohort.intake_year|default:"—" }}</td>
+    </tr>
+    <tr>
+        <td class="k">Class representative</td>
+        <td class="v">{{ request.user.get_full_name|default:request.user.username }}</td>
+    </tr>
+    <tr>
+        <td class="k">Modules in this calendar</td>
+        <td class="v">{{ workloads|length }}</td>
+    </tr>
+    {% if calendar_start %}
+    <tr>
+        <td class="k">Calendar span</td>
+        <td class="v">{{ calendar_start|date:"d M Y" }} &ndash; {{ calendar_end|date:"d M Y" }}</td>
+    </tr>
+    {% endif %}
+</table>
+
+{% if workloads %}
+
+<table class="data">
+    <thead>
+        <tr>
+            <th style="width:5%">#</th>
+            <th style="width:13%">Code</th>
+            <th>Module</th>
+            <th style="width:20%">Lecturer</th>
+            <th style="width:13%">Teaching days</th>
+            <th style="width:10%">Start</th>
+            <th style="width:10%">End</th>
+            <th style="width:10%">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for w in workloads %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ w.course.code }}</td>
+            <td>{{ w.course.name }}</td>
+            <td>{{ w.lecturer.name }}</td>
+            <td>{{ w.course_days }}</td>
+            <td>{{ w.start_date|date:"d M Y" }}</td>
+            <td>{{ w.end_date|date:"d M Y"|default:"—" }}</td>
+            <td><span class="pill {{ w.status }}">{{ w.status }}</span></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h1 style="font-size:14px;">Class dates by module</h1>
+<div class="subtitle">
+    Public holidays are already removed from these dates.
+</div>
+
+<table class="data">
+    <thead>
+        <tr>
+            <th style="width:13%">Code</th>
+            <th style="width:22%">Lecturer</th>
+            <th>Sittings</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for w in workloads %}
+        <tr>
+            <td>{{ w.course.code }}</td>
+            <td>{{ w.lecturer.name }}</td>
+            <td class="sessions">
+                {% for day in w.generated_schedule %}<span>{{ day }}</span>{% empty %}—{% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if holidays %}
+<h1 style="font-size:14px;">Public holidays in this span</h1>
+<table class="data">
+    <thead>
+        <tr>
+            <th style="width:16%">Date</th>
+            <th style="width:14%">Day</th>
+            <th>Holiday</th>
+            <th style="width:20%">Effect</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for h in holidays %}
+        <tr>
+            <td>{{ h.date|date:"d M Y" }}</td>
+            <td>{{ h.date|date:"l" }}</td>
+            <td>{{ h.name }}</td>
+            <td>{% if h.clashes %}No class{% else %}Not a class day{% endif %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+<div class="signatures">
+    <div>
+        Class Representative
+        <div class="sig-line">Signature &amp; date</div>
+    </div>
+    <div>
+        Programme Coordinator
+        <div class="sig-line">Signature &amp; date</div>
+    </div>
+</div>
+
+{% else %}
+
+<div class="empty">
+    No courses scheduled for this cohort
+    {% if selected_period %}in {{ selected_period.academic_year }} {{ selected_period.semester }}{% endif %}.
+</div>
+
+{% endif %}
+
+{% endblock %}

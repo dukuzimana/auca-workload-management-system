@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+
+
+<div class="dashboard-wrapper">
+
+
+
+<h2 class="page-title">
+
+{{ title }}
+
+</h2>
+
+
+
+
+
+<div class="chart-card">
+
+
+
+<h3>
+Update Teaching Workload
+</h3>
+
+
+
+
+
+<form method="POST">
+
+
+{% csrf_token %}
+
+
+
+
+{% if form.errors %}
+
+
+<div class="alert alert-danger">
+
+
+<strong>
+Please correct the following errors:
+</strong>
+
+
+{{ form.errors }}
+
+
+</div>
+
+
+{% endif %}
+
+
+
+
+
+
+
+<div class="form-grid">
+
+
+
+<div>
+
+<label>
+Cohort
+</label>
+
+{{ form.cohort }}
+
+</div>
+
+
+
+
+
+<div>
+
+<label>
+Academic Period
+</label>
+
+{{ form.academic_period }}
+
+</div>
+
+
+
+
+
+<div>
+
+<label>
+Lecturer
+</label>
+
+{{ form.lecturer }}
+
+</div>
+
+
+
+
+
+<div>
+
+<label>
+Course
+</label>
+
+{{ form.course }}
+
+</div>
+
+
+
+
+
+<div>
+
+<label>
+Start Date
+</label>
+
+{{ form.start_date }}
+
+</div>
+
+
+
+
+
+<div>
+
+<label>
+Teaching Days
+</label>
+
+{{ form.course_days }}
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<br>
+
+
+
+
+
+
+<div class="action-bar">
+
+
+
+<button type="submit" class="btn-primary">
+
+<i class="fa-solid fa-save"></i>
+
+Save Changes
+
+</button>
+
+
+
+
+
+<a href="{% url 'workload:workload_detail' workload.id %}"
+   class="btn-secondary">
+
+<i class="fa-solid"></i>
+
+Cancel
+
+</a>
+
+
+
+</div>
+
+
+
+
+
+
+
+</form>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+{% endblock %}

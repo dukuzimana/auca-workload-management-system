@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}
+Delete Workload
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+
+
+
+<div class="dashboard-wrapper">
+
+
+
+
+
+<h2 class="page-title">
+
+Delete Workload
+
+</h2>
+
+
+
+
+
+
+
+
+<div class="chart-card">
+
+
+
+
+
+
+<h3>
+Confirm Deletion
+</h3>
+
+
+
+
+
+
+
+<p>
+
+Are you sure you want to delete this workload?
+
+</p>
+
+
+
+
+
+<div class="alert alert-danger">
+
+
+
+<strong>
+Course:
+</strong>
+
+{{ workload.course.name }}
+
+<br>
+
+
+
+<strong>
+Lecturer:
+</strong>
+
+{{ workload.lecturer.name }}
+
+<br>
+
+
+
+<strong>
+Cohort:
+</strong>
+
+{{ workload.cohort.name }}
+
+
+
+</div>
+
+
+
+
+
+
+
+<form method="POST">
+
+
+{% csrf_token %}
+
+
+
+
+
+<button type="submit" class="btn-danger">
+
+
+<i class="fa-solid fa-trash"></i>
+
+
+Yes, Delete
+
+
+</button>
+
+
+
+
+
+
+
+<a href="{% url 'workload:workload_list' %}"
+   class="btn-secondary">
+
+Cancel
+
+</a>
+
+
+
+
+
+
+</form>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+{% endblock %}

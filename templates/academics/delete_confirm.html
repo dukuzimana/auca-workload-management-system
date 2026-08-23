@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Delete Confirmation
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="dashboard-wrapper">
+
+
+
+<h2 class="page-title">
+
+Confirm Delete
+
+</h2>
+
+
+
+
+
+<div class="delete-box">
+
+
+<p>
+
+Are you sure you want to delete:
+
+<strong>
+
+{{ object }}
+
+</strong>
+
+?
+
+</p>
+
+
+
+
+
+<form method="POST">
+
+
+{% csrf_token %}
+
+
+
+<button type="submit"
+class="btn-danger">
+
+Yes, Delete
+
+</button>
+
+
+
+
+<a href="javascript:history.back()"
+class="btn-secondary">
+
+Cancel
+
+</a>
+
+
+
+</form>
+
+
+
+</div>
+
+
+
+</div>
+
+
+{% endblock %}

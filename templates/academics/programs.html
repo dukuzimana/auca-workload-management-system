@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Programs
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="dashboard-wrapper">
+
+
+<h2 class="page-title">
+Program Management
+</h2>
+
+
+
+<a href="{% url 'academics:program_create' %}"
+class="admin-dashboard-btn">
+
+<i class="fa-solid fa-plus"></i>
+
+Add Program
+
+</a>
+
+
+
+
+{% include "partials/search_box.html" %}
+
+{% if is_searching %}
+<p class="search-summary">
+Showing <strong>{{ result_count }}</strong> of {{ total_count }}
+matching &ldquo;<strong>{{ search_query }}</strong>&rdquo;.
+</p>
+{% endif %}
+
+<div class="table-scroll">
+
+<table class="modern-table">
+
+
+<tr>
+
+<th>
+Program Name
+</th>
+
+
+<th>
+Faculty
+</th>
+
+
+<th>
+Actions
+</th>
+
+
+</tr>
+
+
+
+{% for program in programs %}
+
+
+<tr>
+
+
+<td>
+{{ program.name }}
+</td>
+
+
+
+<td>
+{{ program.faculty.name }}
+</td>
+
+
+
+<td>
+
+
+
+<div class="table-actions">
+<a href="{% url 'academics:program_update' program.id %}"
+class="edit-btn">
+
+<i class="fa-solid fa-pen"></i>
+
+Edit
+
+</a>
+
+
+
+<a href="{% url 'academics:program_delete' program.id %}"
+class="delete-link">
+
+<i class="fa-solid fa-trash"></i>
+
+Delete
+
+</a>
+</div>
+
+
+
+</td>
+
+
+</tr>
+
+
+
+{% empty %}
+
+
+<tr>
+
+<td colspan="3">
+
+{% if is_searching %}
+Nothing matches &ldquo;{{ search_query }}&rdquo;.
+<a href="{{ request.path }}">Clear the search</a>
+to see all {{ total_count }}.
+{% else %}
+No programs available
+{% endif %}
+
+</td>
+
+</tr>
+
+
+
+{% endfor %}
+
+
+
+</table>
+
+</div>
+
+
+</div>
+
+
+{% endblock %}

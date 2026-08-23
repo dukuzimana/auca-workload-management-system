@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}Workload Report{% endblock %}
+
+{% block content %}
+
+<style>
+.rep-head { display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:12px; margin-bottom:18px; }
+.rep-head h2 { color:#003B73; margin:0; }
+.rep-head p { color:#6b7684; margin:4px 0 0; font-size:13px; }
+
+.rep-actions { display:flex; gap:8px; flex-wrap:wrap; }
+.rep-actions a { display:inline-block; padding:9px 16px; border-radius:6px; font-size:13px; font-weight:600; text-decoration:none; }
+.rep-print { background:#0056A6; color:#fff; }
+.rep-csv { background:#fff; color:#0056A6; border:1px solid #0056A6; }
+
+.filter-card { background:#fff; border:1px solid #e3e9f0; border-radius:10px; padding:18px 20px; margin-bottom:18px; }
+.filter-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:14px; }
+.filter-grid label { display:block; font-size:12px; font-weight:600; color:#003B73; margin-bottom:5px; }
+.filter-grid select { width:100%; padding:8px 10px; border:1px solid #ccd6e0; border-radius:6px; font-size:13px; background:#fff; }
+.filter-buttons { margin-top:14px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+/* Apply and Clear use the shared button classes from style.css so
+   they match every other button in the app.
+
+   The reset has to cover BOTH of them. It named only
+   .admin-dashboard-btn, so Apply lost its 20px bottom margin
+   and Clear kept it -- and in a flex row with
+   align-items:center it is the margin BOX that gets centred,
+   so the extra 20px under Clear pushed it visibly higher than
+   Apply. */
+.filter-buttons > * { margin-bottom:0; }
+
+.stat-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:18px; }
+.stat { background:#fff; border:1px solid #e3e9f0; border-radius:10px; padding:14px 16px; }
+.stat .n { font-size:24px; font-weight:700; color:#0056A6; }
+.stat .l { font-size:12px; color:#6b7684; margin-top:2px; }
+
+.rep-table { width:100%; border-collapse:collapse; background:#fff; border:1px solid #e3e9f0; border-radius:10px; overflow:hidden; }
+.rep-table th { background:#0056A6; color:#fff; text-align:left; padding:10px; font-size:12px; }
+.rep-table td { padding:9px 10px; border-top:1px solid #eef2f7; font-size:13px; }
+.rep-table tbody tr:hover td { background:#f7fafd; }
+
+.tag { padding:2px 9px; border-radius:10px; font-size:11px; font-weight:600; }
+.tag.Done{background:#e8f5e9;color:#1b5e20;} .tag.Ongoing{background:#e7f0fa;color:#0056A6;}
+.tag.Upcoming{background:#fdf3e0;color:#8a5a00;} .tag.Pending{background:#fdeceb;color:#7a1f1f;}
+
+.none { padding:34px; text-align:center; color:#8a94a0; background:#fff; border:1px dashed #d5dee8; border-radius:10px; }
+</style>
+
+<div class="rep-head">
+    <div>
+        <h2>Workload Report</h2>
+        <p>Filter across every faculty, programme, cohort, lecturer and period, then print or export.</p>
+    </div>
+    <div class="rep-actions">
+        <a class="rep-print" target="_blank"
+           href="{% url 'reports:workload_report_print' %}?{{ query_string }}">Print / Save as PDF</a>
+        <a class="rep-csv"
+           href="{% url 'reports:workload_report_csv' %}?{{ query_string }}">Export CSV</a>
+    </div>
+</div>
+
+<form method="get" class="filter-card">
+    <div class="filter-grid">
+        {% for field in form %}
+        <div>
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+        </div>
+        {% endfor %}
+    </div>
+    <div class="filter-buttons">
+        <button type="submit" class="admin-dashboard-btn">
+            <i class="fa-solid fa-filter"></i>
+            Apply filters
+        </button>
+        <a href="{% url 'reports:workload_report' %}" class="btn-clear">
+            <i class="fa-solid fa-xmark"></i>
+            Clear
+        </a>
+    </div>
+</form>
+
+<div class="stat-row">
+    <div class="stat"><div class="n">{{ workload_count }}</div><div class="l">Assignments</div></div>
+    <div class="stat"><div class="n">{{ total_courses }}</div><div class="l">Courses</div></div>
+    <div class="stat"><div class="n">{{ total_lecturers }}</div><div class="l">Lecturers</div></div>
+    <div class="stat"><div class="n">{{ total_cohorts }}</div><div class="l">Cohorts</div></div>
+    <div class="stat"><div class="n">{{ total_hours }}</div><div class="l">Credit hours</div></div>
+</div>
+
+{% if workloads %}
+<table class="rep-table">
+    <thead>
+        <tr>
+            <th>#</th><th>Period</th><th>Cohort</th><th>Code</th><th>Module</th>
+            <th>Lecturer</th><th>Days</th><th>Start</th><th>End</th><th>Hrs</th><th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for w in workloads %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ w.academic_period.academic_year }} {{ w.academic_period.semester }}</td>
+            <td>{{ w.cohort.name }}</td>
+            <td>{{ w.course.code }}</td>
+            <td>{{ w.course.name }}</td>
+            <td>{{ w.lecturer.name }}</td>
+            <td>{{ w.course_days }}</td>
+            <td>{{ w.start_date|date:"d M Y" }}</td>
+            <td>{{ w.end_date|date:"d M Y"|default:"—" }}</td>
+            <td>{{ w.hours|default:0 }}</td>
+            <td><span class="tag {{ w.status }}">{{ w.status }}</span></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="none">No workload assignments match these filters.</div>
+{% endif %}
+
+{% endblock %}

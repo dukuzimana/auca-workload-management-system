@@ -1,0 +1,157 @@
+{% extends "print/base_print.html" %}
+
+{% block doc_title %}Teaching Workload - {{ lecturer.name|default:"Lecturer" }}{% endblock %}
+
+{% block back_url %}{% url 'workload:lecturer_dashboard' %}{% endblock %}
+
+{% block toolbar %}
+<form method="get">
+    <label for="period">Academic period</label>
+    <select name="period" id="period" onchange="this.form.submit()">
+        <option value="">All periods</option>
+        {% for p in periods %}
+            <option value="{{ p.pk }}" {% if selected_period and selected_period.pk == p.pk %}selected{% endif %}>
+                {{ p.academic_year }} &mdash; {{ p.semester }}
+            </option>
+        {% endfor %}
+    </select>
+    <noscript><button class="btn ghost" type="submit">Apply</button></noscript>
+</form>
+{% endblock %}
+
+{% block heading %}Individual Teaching Workload{% endblock %}
+
+{% block subheading %}
+{% if selected_period %}
+    {{ selected_period.academic_year }} &middot; {{ selected_period.semester }}
+    {% if selected_period.teaching_period %}&middot; {{ selected_period.teaching_period }}{% endif %}
+{% else %}
+    All academic periods on record
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<table class="meta">
+    <tr>
+        <td class="k">Lecturer</td>
+        <td class="v">{{ lecturer.name|default:"—" }}</td>
+    </tr>
+    <tr>
+        <td class="k">Qualification</td>
+        <td class="v">{{ lecturer.qualification|default:"—" }}</td>
+    </tr>
+    <tr>
+        <td class="k">Employment status</td>
+        <td class="v">{{ lecturer.employment_status|default:"—" }}</td>
+    </tr>
+    <tr>
+        <td class="k">Modules in this report</td>
+        <td class="v">{{ workloads|length }}</td>
+    </tr>
+    <tr>
+        <td class="k">Total credit hours</td>
+        <td class="v">{{ total_hours }} hours ({{ total_sessions }} sittings)</td>
+    </tr>
+</table>
+
+{% if workloads %}
+
+<table class="data">
+    <thead>
+        <tr>
+            <th style="width:14%">Code</th>
+            <th>Module</th>
+            <th style="width:11%">Cohort</th>
+            <th style="width:13%">Teaching days</th>
+            <th style="width:10%">Start</th>
+            <th style="width:10%">End</th>
+            <th class="num" style="width:7%">Hrs</th>
+            <th style="width:10%">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for w in workloads %}
+        <tr>
+            <td>{{ w.course.code }}</td>
+            <td>{{ w.course.name }}</td>
+            <td>{{ w.cohort.name }}</td>
+            <td>{{ w.course_days }}</td>
+            <td>{{ w.start_date|date:"d M Y" }}</td>
+            <td>{{ w.end_date|date:"d M Y"|default:"—" }}</td>
+            <td class="num">{{ w.hours|default:0 }}</td>
+            <td><span class="pill {{ w.status }}">{{ w.status }}</span></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="6">Total</td>
+            <td class="num">{{ total_hours }}</td>
+            <td></td>
+        </tr>
+    </tfoot>
+</table>
+
+<h1 style="font-size:14px;">Class dates</h1>
+<div class="subtitle">
+    Dates a public holiday would have fallen on are excluded; each block
+    runs on until it has delivered its full number of sittings.
+</div>
+
+<table class="data">
+    <thead>
+        <tr>
+            <th style="width:14%">Code</th>
+            <th style="width:18%">Cohort</th>
+            <th>Sittings</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for w in workloads %}
+        <tr>
+            <td>{{ w.course.code }}</td>
+            <td>{{ w.cohort.name }}</td>
+            <td class="sessions">
+                {% for day in w.generated_schedule %}<span>{{ day }}</span>{% empty %}—{% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if missed_any %}
+<div class="note">
+    <strong>Holidays affecting this workload.</strong>
+    {% for w, missed in missed_any %}
+        {{ w.course.code }} ({{ w.cohort.name }}):
+        {% for date, name in missed %}{{ date|date:"d M Y" }} &ndash; {{ name }}{% if not forloop.last %}; {% endif %}{% endfor %}{% if not forloop.last %} &middot; {% endif %}
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="signatures">
+    <div>
+        Lecturer
+        <div class="sig-line">Signature &amp; date</div>
+    </div>
+    <div>
+        Head of Department
+        <div class="sig-line">Signature &amp; date</div>
+    </div>
+    <div>
+        Dean of Faculty
+        <div class="sig-line">Signature &amp; date</div>
+    </div>
+</div>
+
+{% else %}
+
+<div class="empty">
+    No teaching workload recorded
+    {% if selected_period %}for {{ selected_period.academic_year }} {{ selected_period.semester }}{% endif %}.
+</div>
+
+{% endif %}
+
+{% endblock %}

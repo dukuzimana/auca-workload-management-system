@@ -1,0 +1,358 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}
+Workload Details
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+
+
+<div class="dashboard-wrapper">
+
+
+
+
+
+<h2 class="page-title">
+    Workload Details
+</h2>
+
+
+
+
+
+
+
+<div class="chart-card">
+
+
+
+
+
+<h3>
+    {{ workload.course.name }}
+</h3>
+
+
+
+
+
+
+
+<div class="table-scroll">
+
+<table class="modern-table">
+
+
+<tr>
+
+<th>
+Course
+</th>
+
+<td>
+{{ workload.course }}
+</td>
+
+</tr>
+
+
+
+
+
+<tr>
+
+<th>
+Lecturer
+</th>
+
+<td>
+
+{% if workload.lecturer.user %}
+
+{{ workload.lecturer.user.get_full_name|default:workload.lecturer.user.username }}
+
+{% else %}
+
+{{ workload.lecturer.name }}
+
+{% endif %}
+
+</td>
+
+</tr>
+
+
+
+
+
+<tr>
+
+<th>
+Cohort
+</th>
+
+<td>
+{{ workload.cohort.name }}
+</td>
+
+</tr>
+
+
+
+
+
+<tr>
+
+<th>
+Academic Period
+</th>
+
+<td>
+{{ workload.academic_period }}
+</td>
+
+</tr>
+
+
+
+
+
+<tr>
+
+<th>
+Teaching Days
+</th>
+
+<td>
+{{ workload.course_days }}
+</td>
+
+</tr>
+
+
+
+
+
+<tr>
+
+<th>
+Start Date
+</th>
+
+<td>
+{{ workload.start_date }}
+</td>
+
+</tr>
+
+
+
+
+
+<tr>
+
+<th>
+End Date
+</th>
+
+<td>
+{{ workload.end_date }}
+</td>
+
+</tr>
+
+
+
+
+
+<tr>
+
+<th>
+Total Hours
+</th>
+
+<td>
+{{ workload.hours }}
+</td>
+
+</tr>
+
+
+
+
+
+<tr>
+
+<th>
+Status
+</th>
+
+<td>
+
+<span class="badge">
+
+{{ workload.status }}
+
+</span>
+
+</td>
+
+</tr>
+
+
+
+</table>
+
+</div>
+
+
+
+
+
+
+
+
+<br>
+
+
+
+
+
+<h3>
+Generated Schedule
+</h3>
+
+
+
+
+
+
+<div class="chart-card">
+
+
+
+{% if workload.generated_schedule %}
+
+
+
+<ul>
+
+
+{% for day in workload.generated_schedule %}
+
+
+<li>
+
+{{ day }}
+
+</li>
+
+
+{% endfor %}
+
+
+
+</ul>
+
+
+
+{% else %}
+
+
+<p>
+No schedule generated.
+</p>
+
+
+
+{% endif %}
+
+
+
+</div>
+
+<br>
+
+
+
+
+
+<div class="action-bar">
+
+
+
+
+
+<a href="{% url 'workload:workload_update' workload.id %}"
+   class="edit-btn">
+
+<i class="fa-solid fa-pen"></i>
+
+Edit Workload
+
+</a>
+
+
+
+
+
+
+
+<a href="{% url 'workload:workload_delete' workload.id %}"
+   class="delete-link">
+
+<i class="fa-solid fa-trash"></i>
+
+Delete Workload
+
+</a>
+
+
+
+
+
+
+
+<a href="{% url 'workload:workload_list' %}"
+   class="btn-secondary">
+
+<i class="fa-solid "></i>
+
+Back
+
+</a>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,3118 @@
+:root{
+
+    --auca-blue:#0056A6;
+    --auca-dark:#003B73;
+    --auca-light:#EAF3FB;
+    --auca-hover:#D5E9F8;
+
+    --success:#198754;
+    --danger:#dc3545;
+    --warning:#fd7e14;
+
+    --text:#333;
+    --muted:#666;
+
+    --white:#ffffff;
+    --border:#e5e5e5;
+
+}
+
+
+
+/* =====================================================
+   GLOBAL
+===================================================== */
+
+
+*{
+
+    box-sizing:border-box;
+
+    font-family:"Segoe UI", Arial, sans-serif;
+
+}
+
+
+
+html,
+body{
+
+    margin:0;
+
+    padding:0;
+
+}
+
+
+
+body{
+
+    background:#f5f8fc;
+
+    color:var(--text);
+
+}
+
+
+
+a,
+a:hover,
+a:visited,
+a:active,
+a:focus{
+
+    text-decoration:none !important;
+
+}
+
+
+
+
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+
+.top-header{
+
+    height:85px;
+
+    background:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:10px 30px;
+
+    box-shadow:
+    0 4px 15px rgba(0,0,0,.08);
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    right:0;
+
+    z-index:1000;
+
+}
+
+
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+
+
+.brand img{
+
+    width:140px;
+
+}
+
+
+
+.system-title h1{
+
+    margin-left:15px;
+
+    color:var(--auca-blue);
+
+    font-size:20px;
+
+    font-weight:700;
+
+}
+
+
+
+.system-title p{
+
+    margin-left:15px;
+
+    color:#777;
+
+    font-size:12px;
+
+}
+
+
+
+
+
+
+
+/* =====================================================
+   USER AREA
+===================================================== */
+
+
+.user-area{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+
+
+.profile{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+
+
+.user-area i{
+
+    color:var(--auca-blue);
+
+    font-size:20px;
+
+}
+
+
+
+.username{
+
+    display:block;
+
+    font-weight:600;
+
+}
+
+
+
+.user-area small{
+
+    color:#777;
+
+}
+
+
+
+.user-area a{
+
+    color:var(--auca-blue);
+
+    font-weight:600;
+
+}
+
+
+
+.user-area a:hover{
+
+    color:var(--auca-dark);
+
+}
+
+
+
+
+
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+
+.sidebar{
+
+    position:fixed;
+
+    top:85px;
+
+    left:0;
+
+    bottom:0;
+
+    width:240px;
+
+    background:var(--auca-blue);
+
+    padding-top:15px;
+
+    overflow-y:auto;
+
+}
+
+
+
+.sidebar a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:13px 20px;
+
+    color:white !important;
+
+    font-size:14px;
+
+    transition:.3s;
+
+}
+
+
+
+.sidebar a:hover,
+.sidebar a.active{
+
+    background:var(--auca-dark);
+
+}
+
+
+
+.sidebar a i{
+
+    width:25px;
+
+}
+
+
+
+.menu-title{
+
+    padding:12px 20px 6px;
+
+    font-size:11px;
+
+    color:#d9ecff;
+
+    font-weight:bold;
+
+}
+
+
+
+
+
+
+
+/* =====================================================
+   CONTENT AREA
+===================================================== */
+
+
+.content{
+
+    margin-left:240px;
+
+    margin-top:85px;
+
+    padding:25px;
+
+    padding-bottom:80px;
+
+    max-width:calc(100% - 240px);
+
+}
+
+
+
+
+
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+
+.footer{
+
+    position:fixed;
+
+    bottom:0;
+
+    left:240px;
+
+    right:0;
+
+    background:white;
+
+    text-align:center;
+
+    padding:10px;
+
+    font-size:12px;
+
+    color:#777;
+
+    border-top:1px solid var(--border);
+
+}
+
+
+
+
+
+
+/* =====================================================
+   TITLES
+===================================================== */
+
+
+.page-title{
+
+    color:var(--auca-blue);
+
+    font-size:30px;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+
+}
+
+
+
+.welcome{
+
+    color:var(--muted);
+
+    margin-bottom:25px;
+
+}
+
+
+
+
+
+
+/* =====================================================
+   PAGE HEADER
+===================================================== */
+
+
+.page-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+/* =====================================================
+   DASHBOARD CARDS
+===================================================== */
+
+
+.dashboard-cards{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+    margin-top:20px;
+
+    margin-bottom:35px;
+
+}
+
+
+
+.dashboard-cards a.stat-card{
+
+    display:flex;
+
+    color:inherit !important;
+
+}
+
+
+
+.stat-card{
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:15px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    box-shadow:
+
+    0 5px 15px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+
+
+.stat-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+
+    0 10px 25px rgba(0,86,166,.20);
+
+}
+
+
+
+.stat-card h3{
+
+    margin:0;
+
+    font-size:28px;
+
+    color:var(--auca-blue);
+
+}
+
+
+
+.stat-card p{
+
+    margin:6px 0;
+
+    color:#666;
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
+
+
+
+
+
+/* =====================================================
+   ICONS
+===================================================== */
+
+
+.icon{
+
+    width:55px;
+
+    height:55px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:white;
+
+    font-size:22px;
+
+}
+
+
+
+.blue{
+
+    background:var(--auca-blue);
+
+}
+
+
+
+.green{
+
+    background:var(--success);
+
+}
+
+
+
+.orange{
+
+    background:var(--warning);
+
+}
+
+
+
+.purple{
+
+    background:#6f42c1;
+
+}
+
+
+
+
+
+
+/* =====================================================
+   CONTENT CARDS
+===================================================== */
+
+
+.chart-card,
+.activity-card{
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:15px;
+
+    box-shadow:
+
+    0 5px 15px rgba(0,0,0,.08);
+
+    margin-top:25px;
+
+    overflow-x:auto;
+
+}
+
+
+
+.chart-card h3,
+.activity-card h3{
+
+    color:var(--auca-blue);
+
+}
+
+
+
+.chart-card canvas{
+
+    width:100% !important;
+
+    height:280px !important;
+
+}
+
+
+
+
+
+
+
+/* =====================================================
+   TABLES
+===================================================== */
+
+
+.modern-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    background:white;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    box-shadow:
+
+    0 5px 15px rgba(0,0,0,.06);
+
+}
+
+
+
+.modern-table th{
+
+    background:var(--auca-light);
+
+    color:var(--auca-dark);
+
+    padding:14px;
+
+    text-align:left;
+
+    font-size:14px;
+
+    font-weight:700;
+
+}
+
+
+
+.modern-table td{
+
+    padding:13px;
+
+    border-bottom:1px solid var(--border);
+
+    font-size:14px;
+
+    color:#444;
+
+}
+
+
+
+.modern-table tr:hover{
+
+    background:#f8fbff;
+
+}
+
+
+
+.modern-table td:last-child{
+
+    white-space:nowrap;
+
+}
+
+
+
+
+
+
+
+/* =====================================================
+   TEACHING DAYS COLUMN
+
+   course_days is stored the way the spreadsheet writes it:
+   "Monday,Tuesday,Wednesday,Thursday,Friday", with no space
+   after the commas. To a browser that is one unbreakable
+   40-character word, and there is nowhere legal to break it.
+
+   It was the only such value in the table -- the next worst
+   column, Academic Period, is longer overall but its longest
+   unbreakable run is 14 characters, so it wraps by itself.
+   The Days column therefore set the width of the whole table,
+   pushed it past the edge of the card, and left the Actions
+   buttons off-screen behind a horizontal scroll. Internship
+   and Thesis run five days a week and were the rows doing it.
+
+   The template now renders one chip per day, which gives the
+   browser somewhere to wrap, and the column is capped so a
+   five-day module takes two short lines instead of one long
+   one.
+===================================================== */
+
+.modern-table th.col-days,
+.modern-table td.col-days{
+
+    max-width:130px;
+
+    white-space:normal;
+
+}
+
+
+.day-chips{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:4px;
+
+}
+
+
+.day-chip{
+
+    display:inline-block;
+
+    padding:2px 7px;
+
+    border-radius:6px;
+
+    background:var(--auca-light);
+
+    color:var(--auca-dark);
+
+    font-size:12px;
+
+    font-weight:600;
+
+    line-height:1.7;
+
+    /* The abbreviation itself must never be split. */
+    white-space:nowrap;
+
+}
+
+
+/* A row with no days recorded shows a dash rather than an
+   empty cell, so a missing value looks deliberate instead of
+   looking like the page failed to load. */
+.day-chip-missing{
+
+    background:transparent;
+
+    color:#9aa3ad;
+
+    font-weight:400;
+
+}
+
+
+
+
+/* =====================================================
+   ACTIONS COLUMN THAT STAYS PUT
+
+   Wrapping the days is enough on a normal laptop, but this
+   table carries ten columns and there will always be a screen
+   narrow enough to push the last one out of view. Pinning
+   Actions to the right edge means View, Edit and Delete are
+   reachable at any width -- the other columns scroll under it.
+
+   Scoped to .table-sticky-actions rather than .modern-table
+   so the tables on every other screen are untouched.
+
+   The cell background must be opaque, or the columns sliding
+   underneath show through the buttons.
+===================================================== */
+
+.table-sticky-actions{
+
+    /* .modern-table sets overflow:hidden to clip its rounded
+       corners. That creates a clipping context, and a sticky
+       cell inside one stops sticking. */
+    overflow:visible;
+
+}
+
+
+.table-sticky-actions th:last-child,
+.table-sticky-actions td:last-child{
+
+    position:sticky;
+
+    right:0;
+
+    z-index:2;
+
+}
+
+
+.table-sticky-actions td:last-child{
+
+    background:#ffffff;
+
+    /* A hairline to show the column is floating above the
+       ones scrolling beneath it. */
+    box-shadow:inset 1px 0 0 var(--border);
+
+}
+
+
+.table-sticky-actions th:last-child{
+
+    background:var(--auca-light);
+
+    box-shadow:inset 1px 0 0 var(--border);
+
+}
+
+
+/* Keep the hover tint continuous across the pinned column. */
+.table-sticky-actions tr:hover td:last-child{
+
+    background:#f8fbff;
+
+}
+
+
+/* The action bar is a page-level component with a 25px gap
+   below it. Inside a table cell that spacing just makes every
+   row taller. */
+.table-sticky-actions .action-bar{
+
+    margin-bottom:0;
+
+    gap:8px;
+
+    flex-wrap:nowrap;
+
+}
+
+
+/* =====================================================
+   BADGES
+===================================================== */
+
+
+.badge{
+
+    display:inline-block;
+
+    padding:5px 12px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    background:var(--auca-light);
+
+    color:var(--auca-blue);
+
+    font-weight:600;
+
+}
+
+
+
+.badge.success{
+
+    background:#d1e7dd;
+
+    color:#0f5132;
+
+}
+
+
+
+.badge.danger{
+
+    background:#f8d7da;
+
+    color:#842029;
+
+}
+
+
+
+
+
+
+
+/* =====================================================
+   GENERAL FORMS
+===================================================== */
+
+
+form p{
+
+    margin-bottom:18px;
+
+}
+
+
+
+form label{
+
+    display:block;
+
+    color:var(--auca-dark);
+
+    font-weight:600;
+
+    margin-bottom:7px;
+
+}
+
+
+
+.form-control,
+form input:not([type=submit]):not([type=button]):not([type=reset]):not([type=checkbox]):not([type=radio]),
+form select,
+form textarea{
+
+    width:100%;
+
+    padding:12px;
+
+    border-radius:8px;
+
+    border:1px solid #ccc;
+
+    font-size:14px;
+
+    color:#333;
+
+    background:white;
+
+}
+
+
+
+.form-control:focus,
+form input:not([type=submit]):not([type=button]):not([type=reset]):focus,
+form select:focus,
+form textarea:focus{
+
+    outline:none;
+
+    border-color:var(--auca-blue);
+
+    box-shadow:
+
+    0 0 5px rgba(0,86,166,.25);
+
+}
+
+
+
+textarea.form-control{
+
+    resize:vertical;
+
+}
+
+
+
+
+
+
+/* =====================================================
+   FORM GRID
+===================================================== */
+
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+    gap:20px;
+
+    margin-top:20px;
+
+}
+
+
+
+.form-grid div{
+
+    width:100%;
+
+}
+
+
+
+.form-grid label{
+
+    display:block;
+
+    margin-bottom:7px;
+
+    color:var(--auca-dark);
+
+    font-weight:600;
+
+}
+
+
+
+.form-grid .form-control{
+
+    width:100%;
+
+}
+
+
+
+
+
+
+
+/* =====================================================
+   WORKLOAD STATUS
+===================================================== */
+
+
+.status-upcoming{
+
+    background:#e7f1ff;
+
+    color:#0056A6;
+
+}
+
+
+
+.status-ongoing{
+
+    background:#d1e7dd;
+
+    color:#0f5132;
+
+}
+
+
+
+.status-done{
+
+    background:#eeeeee;
+
+    color:#555;
+
+}
+
+
+
+.status-pending{
+
+    background:#fff3cd;
+
+    color:#664d03;
+
+}
+
+
+
+
+
+
+/* =====================================================
+   CRUD FORM CONTAINER
+===================================================== */
+
+
+.crud-form,
+.delete-box{
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:15px;
+
+    box-shadow:
+
+    0 5px 15px rgba(0,0,0,.08);
+
+    max-width:700px;
+
+}
+
+
+
+
+
+
+/* =====================================================
+   DELETE CONFIRMATION BOX
+===================================================== */
+
+
+.delete-box p{
+
+    font-size:16px;
+
+    color:#444;
+
+    margin-bottom:25px;
+
+}
+
+
+
+.delete-box strong{
+
+    color:var(--auca-blue);
+
+}
+/* =====================================================
+   BUTTON SYSTEM
+===================================================== */
+
+
+/* MAIN ACTION BUTTON
+   Used by Academic Management and User Management
+*/
+
+
+.admin-dashboard-btn,
+.btn-primary{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    background:var(--auca-blue);
+
+    color:white !important;
+
+    padding:10px 20px;
+
+    border-radius:8px;
+
+    border:none;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.admin-dashboard-btn:hover,
+.btn-primary:hover{
+
+    background:var(--auca-dark);
+
+    color:white !important;
+
+    transform:translateY(-2px);
+
+}
+
+
+
+
+
+/* SECONDARY BUTTON */
+
+
+.btn-secondary{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    background:var(--auca-light);
+
+    color:var(--auca-blue) !important;
+
+    padding:10px 20px;
+
+    border-radius:8px;
+
+    font-weight:600;
+
+    border:none;
+
+    cursor:pointer;
+
+}
+
+
+
+.btn-secondary:hover{
+
+    background:var(--auca-hover);
+
+}
+
+
+
+
+
+
+
+/* =====================================================
+   CRUD ACTION BUTTONS
+   Same style used in Faculty, Program, Course pages
+===================================================== */
+
+
+/* EDIT BUTTON */
+
+
+.edit-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    background:var(--auca-blue);
+
+    color:white !important;
+
+    padding:7px 14px;
+
+    border-radius:7px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    margin-right:5px;
+
+    transition:.3s;
+
+}
+
+
+
+.edit-btn:hover{
+
+    background:var(--auca-dark);
+
+    color:white !important;
+
+}
+
+
+
+
+
+
+
+/* DELETE LINK */
+
+
+.delete-link{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    background:var(--danger);
+
+    color:white !important;
+
+    padding:7px 14px;
+
+    border-radius:7px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+
+
+.delete-link:hover{
+
+    background:#a71d2a;
+
+    color:white !important;
+
+}
+
+
+
+
+
+
+
+
+/* =====================================================
+   SMALL BUTTONS
+===================================================== */
+
+
+.btn-sm{
+
+    padding:7px 12px;
+
+    font-size:13px;
+
+}
+
+
+
+
+
+
+
+/* =====================================================
+   DELETE CONFIRMATION
+===================================================== */
+
+
+.delete-box{
+
+    max-width:600px;
+
+}
+
+
+
+.delete-box p{
+
+    font-size:16px;
+
+    color:#444;
+
+    margin-bottom:25px;
+
+}
+
+
+
+.delete-box strong{
+
+    color:var(--auca-blue);
+
+}
+
+
+
+
+
+
+/* DELETE CONFIRM BUTTON */
+
+
+.delete-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    background:var(--danger);
+
+    color:white;
+
+    border:none;
+
+    padding:10px 20px;
+
+    border-radius:8px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+
+
+.delete-btn:hover{
+
+    background:#a71d2a;
+
+}
+
+
+
+
+
+/* CANCEL BUTTON */
+
+
+.cancel-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    background:var(--auca-light);
+
+    color:var(--auca-blue) !important;
+
+    padding:10px 20px;
+
+    border-radius:8px;
+
+    font-weight:600;
+
+}
+
+
+
+.cancel-btn:hover{
+
+    background:var(--auca-hover);
+
+}
+
+
+
+
+
+
+
+
+/* =====================================================
+   EMPTY STATES
+===================================================== */
+
+
+.empty-message{
+
+    text-align:center;
+
+    padding:30px;
+
+    color:#777;
+
+    font-size:15px;
+
+}
+
+
+
+
+
+
+
+/* =====================================================
+   ACTION BAR
+===================================================== */
+
+
+.action-bar{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:25px;
+
+}
+
+
+
+
+
+
+
+
+/* =====================================================
+   RESPONSIVE DESIGN
+===================================================== */
+
+
+@media(max-width:1024px){
+
+
+.sidebar{
+
+    width:200px;
+
+}
+
+
+
+.content{
+
+    margin-left:200px;
+
+    max-width:calc(100% - 200px);
+
+}
+
+
+
+.footer{
+
+    left:200px;
+
+}
+
+
+}
+
+
+
+
+
+
+
+@media(max-width:768px){
+
+
+
+.top-header{
+
+    padding:10px 15px;
+
+}
+
+
+
+.brand img{
+
+    width:90px;
+
+}
+
+
+
+.system-title h1{
+
+    font-size:15px;
+
+}
+
+
+
+.system-title p{
+
+    display:none;
+
+}
+
+
+
+.sidebar{
+
+    display:none;
+
+}
+
+
+
+.content{
+
+    margin-left:0;
+
+    max-width:100%;
+
+    padding:15px;
+
+}
+
+
+
+.footer{
+
+    left:0;
+
+}
+
+
+
+.dashboard-cards{
+
+    grid-template-columns:1fr;
+
+}
+
+
+
+.page-header{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:15px;
+
+}
+
+
+
+.modern-table{
+
+    display:block;
+
+    overflow-x:auto;
+
+}
+
+
+
+.form-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+
+
+.chart-card,
+.activity-card{
+
+    padding:15px;
+
+}
+
+
+
+.action-bar{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+}
+
+
+}
+/* =====================================================
+   DANGER BUTTON
+   Used for Delete actions in CRUD pages
+===================================================== */
+
+
+.btn-danger{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    background:var(--danger);
+
+    color:white !important;
+
+    padding:10px 20px;
+
+    border-radius:8px;
+
+    border:none;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.btn-danger:hover{
+
+    background:#a71d2a;
+
+    color:white !important;
+
+    transform:translateY(-2px);
+
+}
+
+/* ==================================================
+   SEARCH BOX
+   Shared by every list screen (templates/partials/search_box.html)
+   ================================================== */
+
+.search-box{
+
+    display:flex;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-bottom:20px;
+
+}
+
+
+.search-box-field{
+
+    position:relative;
+
+    flex:1 1 260px;
+
+    max-width:420px;
+
+}
+
+
+.search-box-icon{
+
+    position:absolute;
+
+    left:14px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:#9aa4b2;
+
+    pointer-events:none;
+
+    font-size:14px;
+
+}
+
+
+.search-box-input.form-control{
+
+    width:100%;
+
+    padding-left:40px;
+
+    margin:0;
+
+}
+
+
+/* The browser's own clear "x" duplicates our Clear link. */
+.search-box-input::-webkit-search-cancel-button{
+
+    -webkit-appearance:none;
+
+    appearance:none;
+
+}
+
+
+.search-box-btn{
+
+    margin-bottom:0;
+
+}
+
+
+/* Clear is built to the same measurements as Search. */
+.search-box-clear,
+.btn-clear{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    background:var(--auca-light);
+
+    color:var(--auca-blue) !important;
+
+    padding:10px 20px;
+
+    border-radius:8px;
+
+    border:none;
+
+    font-size:inherit;
+
+    font-weight:600;
+
+    line-height:1.2;
+
+    cursor:pointer;
+
+    text-decoration:none;
+
+    transition:.3s;
+
+}
+
+
+.search-box-clear:hover,
+.btn-clear:hover{
+
+    background:var(--auca-hover);
+
+    color:var(--auca-dark) !important;
+
+    text-decoration:none;
+
+    transform:translateY(-2px);
+
+}
+
+
+/* Line shown above a table when a search is active. */
+.search-summary{
+
+    margin:-8px 0 16px;
+
+    color:#5b6675;
+
+    font-size:14px;
+
+}
+
+
+.search-summary strong{
+
+    color:var(--auca-blue);
+
+}
+
+
+@media (max-width:600px){
+
+    .search-box-field{
+
+        flex:1 1 100%;
+
+        max-width:none;
+
+    }
+
+}
+
+
+/* ==================================================
+   DELETE IMPACT PANEL
+   ================================================== */
+
+.delete-impact{
+
+    background:#fff8e6;
+
+    border:1px solid #f0d68a;
+
+    border-left:4px solid #e0a800;
+
+    border-radius:8px;
+
+    padding:14px 18px;
+
+    margin:16px 0 20px;
+
+    font-size:14px;
+
+    color:#5b4a1a;
+
+}
+
+
+.delete-impact ul{
+
+    margin:8px 0 8px 18px;
+
+}
+
+
+.delete-impact li{
+
+    margin-bottom:6px;
+
+}
+
+
+/* ==================================================
+   UNLINKED ACCOUNTS PANEL
+   Shown on the Lecturer / Representative Accounts screens
+   ================================================== */
+
+.unlinked-panel{
+
+    background:#f4f8ff;
+
+    border:1px solid #cfe0f7;
+
+    border-left:4px solid var(--auca-blue);
+
+    border-radius:8px;
+
+    padding:16px 20px;
+
+    margin-bottom:22px;
+
+}
+
+
+.unlinked-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin:0 0 6px;
+
+    font-weight:700;
+
+    color:var(--auca-blue);
+
+}
+
+
+.unlinked-note{
+
+    margin:0 0 14px;
+
+    font-size:14px;
+
+    color:#5b6675;
+
+}
+
+
+.unlinked-columns{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:30px;
+
+}
+
+
+.unlinked-columns > div{
+
+    flex:1 1 240px;
+
+}
+
+
+.unlinked-columns h4{
+
+    margin:0 0 8px;
+
+    font-size:13px;
+
+    text-transform:uppercase;
+
+    letter-spacing:.04em;
+
+    color:#5b6675;
+
+}
+
+
+.unlinked-columns ul{
+
+    margin:0;
+
+    padding-left:18px;
+
+    font-size:14px;
+
+}
+
+
+.unlinked-columns li{
+
+    margin-bottom:4px;
+
+}
+
+
+.unlinked-none{
+
+    list-style:none;
+
+    margin-left:-18px;
+
+    color:#7a8494;
+
+    font-style:italic;
+
+}
+
+
+/* =====================================================
+   OPTIONAL FIELD HINTS
+   Used on the workload assignment form for co-lecturers
+   and the duration override.
+===================================================== */
+
+.field-optional{
+
+    color:#8a94a0;
+
+    font-weight:400;
+
+    font-size:12px;
+
+}
+
+
+.field-help{
+
+    display:block;
+
+    margin-top:6px;
+
+    color:#6b7684;
+
+    font-size:12px;
+
+    line-height:1.5;
+
+}
+
+
+/* =====================================================
+   MISSING VALUES ON CONFIRMATION SCREENS
+
+   A label followed by nothing looks like a rendering
+   fault and gives the administrator no idea whether it
+   is safe to continue. These say plainly that the value
+   is absent, in muted italics so they do not read as
+   real data.
+===================================================== */
+
+.value-missing{
+
+    color:#8a94a0;
+
+    font-style:italic;
+
+}
+
+
+.delete-note{
+
+    background:#EAF3FB;
+
+    border-left:4px solid var(--auca-blue);
+
+    border-radius:6px;
+
+    padding:12px 14px;
+
+    margin:18px 0;
+
+    color:#42505f;
+
+    font-size:14px;
+
+    line-height:1.6;
+
+}
+
+
+.delete-note i{
+
+    color:var(--auca-blue);
+
+    margin-right:6px;
+
+}
+
+
+.delete-error{
+
+    background:#fdeceb;
+
+    border:1px solid #f5c6c4;
+
+    border-radius:8px;
+
+    padding:14px 16px;
+
+    margin-bottom:18px;
+
+    color:#7a1f1f;
+
+    line-height:1.6;
+
+}
+
+
+.delete-error i{
+
+    margin-right:6px;
+
+}
+
+
+/* =====================================================
+   UNIFIED BUTTON SIZING
+
+   Two tiers: 42px for page and form actions, 34px for
+   actions inside a table row. Height is min-height, never
+   vertical padding, so icons and label length cannot
+   change it.
+
+   The trap: <button> does not inherit font-size. Browsers
+   give it ~13px while an <a> beside it renders at 16px, so
+   identical padding produced different heights. The reset
+   below fixes that, and `form input` is scoped away from
+   submit buttons so they are not styled as text fields.
+   ===================================================== */
+
+
+/* --- 1. Inherit the page's typography --- */
+
+button,
+input[type="submit"],
+input[type="button"],
+input[type="reset"]{
+
+    font-family:inherit;
+
+    font-size:inherit;
+
+    line-height:inherit;
+
+}
+
+
+/* --- 2. Tier one: page and form actions --- */
+
+.btn,
+.btn-primary,
+.btn-secondary,
+.btn-danger,
+.btn-clear,
+.cancel-btn,
+.delete-btn,
+.admin-dashboard-btn,
+.search-box-clear,
+.logout-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    box-sizing:border-box;
+
+    min-height:42px;
+
+    padding:0 20px;
+
+    border:1px solid transparent;
+
+    border-radius:8px;
+
+    font-family:inherit;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    line-height:1.2;
+
+    text-align:center;
+
+    text-decoration:none;
+
+    white-space:nowrap;
+
+    vertical-align:middle;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    /* Width must not be inherited from the form-field rules;
+       a button is as wide as its label. */
+    width:auto;
+
+}
+
+
+/* --- 3. Tier two: actions inside a table row --- */
+
+.edit-btn,
+.delete-link,
+.btn-sm{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:6px;
+
+    box-sizing:border-box;
+
+    min-height:34px;
+
+    padding:0 14px;
+
+    border:1px solid transparent;
+
+    border-radius:7px;
+
+    font-family:inherit;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    line-height:1.2;
+
+    text-decoration:none;
+
+    white-space:nowrap;
+
+    vertical-align:middle;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    width:auto;
+
+}
+
+
+/* --- 4. Spacing comes from the row, not the button --- */
+
+.btn,
+.btn-primary,
+.btn-secondary,
+.btn-danger,
+.btn-clear,
+.cancel-btn,
+.delete-btn,
+.admin-dashboard-btn,
+.search-box-clear{
+
+    margin-bottom:20px;
+
+}
+
+
+/* A row of buttons: even gaps, aligned centres, and no stray
+   margin underneath each one. Use this to group Save/Cancel or
+   Delete/Cancel. */
+
+.btn-row,
+.form-actions{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-top:25px;
+
+    margin-bottom:20px;
+
+}
+
+
+.btn-row > *,
+.form-actions > *,
+.action-bar > *,
+.filter-buttons > *,
+.rep-head > *{
+
+    margin-bottom:0;
+
+}
+
+
+/* Any flex row that centres its items must strip the stacking
+   margin off ALL of them, not some. With align-items:center it
+   is the margin BOX that gets centred, so one button carrying
+   a 20px bottom margin sits visibly higher than the one beside
+   it even though both are the same height. This was the Apply
+   / Clear misalignment on the workload report. */
+
+.btn-row,
+.form-actions,
+.action-bar,
+.filter-buttons{
+
+    align-items:center;
+
+}
+
+
+/* Table action cells: keep Edit and Delete on one line with an
+   even gap instead of relying on margin-right. */
+
+.table-actions{
+
+    display:flex;
+
+    flex-wrap:nowrap;
+
+    align-items:center;
+
+    justify-content:flex-start;
+
+    gap:8px;
+
+}
+
+
+.table-actions > *{
+
+    margin:0;
+
+}
+
+
+/* --- 5. Colours only. Sizes are all above. --- */
+
+.btn,
+.btn-primary,
+.admin-dashboard-btn{
+
+    background:var(--auca-blue);
+
+    color:#fff !important;
+
+}
+
+
+.btn:hover,
+.btn-primary:hover,
+.admin-dashboard-btn:hover{
+
+    background:var(--auca-dark);
+
+    color:#fff !important;
+
+    transform:translateY(-2px);
+
+}
+
+
+.btn-secondary,
+.btn.secondary,
+.cancel-btn,
+.btn-clear,
+.search-box-clear{
+
+    background:var(--auca-light);
+
+    color:var(--auca-blue) !important;
+
+}
+
+
+.btn-secondary:hover,
+.btn.secondary:hover,
+.cancel-btn:hover,
+.btn-clear:hover,
+.search-box-clear:hover{
+
+    background:var(--auca-hover);
+
+    color:var(--auca-dark) !important;
+
+    transform:translateY(-2px);
+
+}
+
+
+.btn.ghost{
+
+    background:#fff;
+
+    color:var(--auca-blue) !important;
+
+    border:1px solid var(--auca-blue);
+
+}
+
+
+.btn.ghost:hover{
+
+    background:var(--auca-light);
+
+}
+
+
+.btn-danger,
+.delete-btn,
+.delete-link{
+
+    background:var(--danger);
+
+    color:#fff !important;
+
+}
+
+
+.btn-danger:hover,
+.delete-btn:hover,
+.delete-link:hover{
+
+    background:#a71d2a;
+
+    color:#fff !important;
+
+}
+
+
+.edit-btn{
+
+    background:var(--auca-blue);
+
+    color:#fff !important;
+
+    /* Spacing is the cell's job now (.table-actions), but keep a
+       small gap for rows not yet using it. */
+    margin-right:6px;
+
+}
+
+
+.table-actions .edit-btn{
+
+    margin-right:0;
+
+}
+
+
+.edit-btn:hover{
+
+    background:var(--auca-dark);
+
+    color:#fff !important;
+
+}
+
+
+.logout-btn{
+
+    background:transparent;
+
+    color:#fff !important;
+
+    border:1px solid rgba(255,255,255,.55);
+
+    margin-bottom:0;
+
+}
+
+
+.logout-btn:hover{
+
+    background:rgba(255,255,255,.15);
+
+    color:#fff !important;
+
+}
+
+
+/* The search box sits in its own row, so its Search and Clear
+   buttons carry no bottom margin and match the input's height. */
+
+.search-box{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:18px;
+
+}
+
+
+.search-box-field{
+
+    position:relative;
+
+    flex:1 1 260px;
+
+    min-width:0;
+
+}
+
+
+.search-box-input{
+
+    min-height:42px;
+
+    padding-left:38px !important;
+
+}
+
+
+.search-box-icon{
+
+    position:absolute;
+
+    left:14px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:var(--muted);
+
+    pointer-events:none;
+
+}
+
+
+.search-box-btn,
+.search-box-clear{
+
+    margin-bottom:0;
+
+    flex:0 0 auto;
+
+}
+
+
+/* =====================================================
+   SMALL TEXT HELPERS
+   ===================================================== */
+
+.page-note{
+
+    color:var(--muted);
+
+    font-size:14px;
+
+    line-height:1.6;
+
+    max-width:70ch;
+
+    margin:0 0 18px;
+
+}
+
+
+.status-warning{
+
+    display:inline-block;
+
+    color:#8a5300;
+
+    background:#fff4e0;
+
+    border-radius:6px;
+
+    padding:3px 9px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+
+.status-ok{
+
+    display:inline-block;
+
+    color:#0f5132;
+
+    background:#e3f5ea;
+
+    border-radius:6px;
+
+    padding:3px 9px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+
+/* =====================================================
+   FILTER TABS  (compact tier measurements)
+   ===================================================== */
+
+.filter-tabs{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-bottom:14px;
+
+}
+
+
+.filter-tab{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    box-sizing:border-box;
+
+    min-height:34px;
+
+    padding:0 14px;
+
+    border:1px solid var(--border);
+
+    border-radius:7px;
+
+    background:var(--white);
+
+    color:var(--muted) !important;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    line-height:1.2;
+
+    text-decoration:none;
+
+    white-space:nowrap;
+
+    transition:.3s;
+
+}
+
+
+.filter-tab:hover{
+
+    border-color:var(--auca-blue);
+
+    color:var(--auca-blue) !important;
+
+}
+
+
+.filter-tab.is-active{
+
+    background:var(--auca-blue);
+
+    border-color:var(--auca-blue);
+
+    color:#fff !important;
+
+}
+
+
+/* =====================================================
+   FORM HELP TEXT
+   Rendered by {{ form.as_p }} under a field.
+   ===================================================== */
+
+.helptext{
+
+    display:block;
+
+    margin-top:6px;
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    line-height:1.5;
+
+}
+
+
+.helptext a{
+
+    color:var(--auca-blue) !important;
+
+    font-weight:600;
+
+    text-decoration:underline;
+
+}
+
+
+/* =====================================================
+   WIDE TABLES
+
+   A table with many columns (Workload has eight) cannot
+   shrink to a phone without either wrapping the action
+   buttons under each other or squeezing the text to one
+   word per line. It scrolls sideways instead: the Actions
+   column keeps its full width and Edit/Delete stay on one
+   line at every screen size.
+   ===================================================== */
+
+.table-scroll{
+
+    width:100%;
+
+    overflow-x:auto;
+
+    -webkit-overflow-scrolling:touch;
+
+    border-radius:12px;
+
+}
+
+
+/* The table may now exceed its container, so it must not be
+   forced back down to 100%. */
+
+.table-scroll > .modern-table{
+
+    min-width:100%;
+
+    width:auto;
+
+    border-radius:0;
+
+}
+
+
+/* Cells stop wrapping once the table can scroll sideways --
+   wrapping is what made rows tall and ragged. Cells that are
+   meant to wrap opt out: .col-days packs its chips into a
+   block deliberately and would otherwise stretch the table by
+   the width of a whole week. */
+
+.table-scroll .modern-table th,
+.table-scroll .modern-table td{
+
+    white-space:nowrap;
+
+}
+
+
+.table-scroll .modern-table td.col-days,
+.table-scroll .modern-table td.cell-wrap{
+
+    white-space:normal;
+
+}
+
+
+/* The actions column is the one that must never collapse. */
+
+.modern-table td:last-child,
+.modern-table th:last-child{
+
+    white-space:nowrap;
+
+    width:1%;
+
+}
+
+
+/* =====================================================
+   VIEW BUTTON
+   Third table action, alongside Edit and Delete.
+   ===================================================== */
+
+.view-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:6px;
+
+    box-sizing:border-box;
+
+    min-height:34px;
+
+    padding:0 14px;
+
+    border:1px solid var(--auca-blue);
+
+    border-radius:7px;
+
+    background:var(--auca-light);
+
+    color:var(--auca-blue) !important;
+
+    font-family:inherit;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    line-height:1.2;
+
+    text-decoration:none;
+
+    white-space:nowrap;
+
+    vertical-align:middle;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+
+.view-btn:hover{
+
+    background:var(--auca-hover);
+
+    color:var(--auca-dark) !important;
+
+}
+
+
+
+/* The sticky Actions column now pins inside .table-scroll
+   rather than against the viewport, which is what makes it
+   reachable without scrolling the whole page. */
+
+.table-scroll > .table-sticky-actions{
+
+    overflow:visible;
+
+}
+
+
+/* =====================================================
+   ALERTS
+
+   Feedback after an action. The base template renders
+   these; before that nothing did, so every
+   messages.success() in the project was invisible.
+
+   Built on the AUCA palette: success and info take the
+   institutional blue family, and only genuine problems
+   use red or amber, so a routine confirmation never
+   looks like a fault.
+   ===================================================== */
+
+.messages{
+
+    margin:0 0 22px;
+
+}
+
+
+.alert{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:12px;
+
+    padding:14px 16px;
+
+    margin-bottom:12px;
+
+    border:1px solid transparent;
+
+    border-left-width:4px;
+
+    /* Square: a single-sided border with rounded corners
+       leaves a visible notch at the top and bottom. */
+    border-radius:0 8px 8px 0;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    line-height:1.5;
+
+    animation:alert-in .25s ease-out;
+
+}
+
+
+@keyframes alert-in{
+
+    from{ opacity:0; transform:translateY(-6px); }
+
+    to{ opacity:1; transform:translateY(0); }
+
+}
+
+
+.alert-leaving{
+
+    opacity:0;
+
+    transform:translateY(-6px);
+
+    transition:opacity .4s, transform .4s;
+
+}
+
+
+.alert-icon{
+
+    flex:0 0 auto;
+
+    margin-top:1px;
+
+    font-size:16px;
+
+}
+
+
+.alert-text{
+
+    flex:1 1 auto;
+
+}
+
+
+.alert-close{
+
+    flex:0 0 auto;
+
+    min-height:0;
+
+    padding:0 4px;
+
+    border:none;
+
+    background:transparent;
+
+    color:inherit;
+
+    font-size:20px;
+
+    font-weight:700;
+
+    line-height:1;
+
+    cursor:pointer;
+
+    opacity:.55;
+
+}
+
+
+.alert-close:hover{
+
+    opacity:1;
+
+}
+
+
+/* Success and info: AUCA blue. Green would be the obvious
+   choice but reads as a different brand on this palette. */
+
+.alert-success{
+
+    background:var(--auca-light);
+
+    border-color:var(--auca-blue);
+
+    color:var(--auca-dark);
+
+}
+
+
+.alert-info,
+.alert-debug{
+
+    background:#f3f7fb;
+
+    border-color:#9bbdd9;
+
+    color:var(--auca-dark);
+
+}
+
+
+.alert-warning{
+
+    background:#fff4e0;
+
+    border-color:var(--warning);
+
+    color:#8a5300;
+
+}
+
+
+.alert-error,
+.alert-danger{
+
+    background:#fbe9ea;
+
+    border-color:var(--danger);
+
+    color:#842029;
+
+}
+
+
+/* =====================================================
+   QUALIFICATION COLUMN
+
+   Free text of no fixed length. Held on one line it made
+   the Lecturers table wider than the screen and pushed
+   the actions out of view, so it wraps inside a fixed
+   width and the table fits without scrolling.
+   ===================================================== */
+
+.table-scroll .modern-table td.col-qualification{
+
+    white-space:normal;
+
+    /* Narrow enough that Name, Email, Status and Actions all fit
+       beside it on a laptop, so the Lecturers table needs no
+       sideways scroll to reach Edit and Delete. */
+    min-width:140px;
+
+    max-width:190px;
+
+    /* "Ph.D in Computer Science, Ph. D candidate in Data
+       science" is one long run of text; let it break rather
+       than push the column wider. */
+    overflow-wrap:anywhere;
+
+    line-height:1.45;
+
+}
+
+
+/* Field-by-field errors inside an alert. */
+
+.alert-list{
+
+    margin:6px 0 0;
+
+    padding-left:20px;
+
+    font-weight:400;
+
+}
+
+
+.alert-list li{
+
+    margin-bottom:3px;
+
+}

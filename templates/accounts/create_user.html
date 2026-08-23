@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Create User
+{% endblock %}
+
+
+
+
+{% block content %}
+
+
+
+<div class="dashboard-wrapper">
+
+
+
+<div class="page-header">
+
+
+<h2 class="page-title">
+Create New User
+</h2>
+
+
+
+<a href="{% url 'accounts:user_list' %}" 
+class="btn-secondary">
+
+<i class="fa-solid fa-users"></i>
+
+View Users
+
+</a>
+
+
+</div>
+
+
+
+
+
+
+<div class="crud-form">
+
+
+<form method="POST">
+
+
+{% csrf_token %}
+
+
+
+{% for field in form %}
+
+
+<div class="form-group">
+
+
+<label>
+
+{{ field.label }}
+
+</label>
+
+
+{{ field }}
+
+
+
+
+{% if field.errors %}
+
+<small style="color:red;">
+
+{{ field.errors }}
+
+</small>
+
+
+{% endif %}
+
+
+
+</div>
+
+
+
+{% endfor %}
+
+
+
+
+<button type="submit" class="btn-primary">
+
+
+<i class="fa-solid fa-user-plus"></i>
+
+
+Create User
+
+
+</button>
+
+
+
+</form>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+{% endblock %}

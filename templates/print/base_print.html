@@ -1,0 +1,284 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{% block doc_title %}AUCA Print{% endblock %}</title>
+
+<style>
+/* ==========================================================
+   PRINT SHEET
+   Screen shows a page-shaped preview; print drops the toolbar
+   and lays the document out for A4.
+   ========================================================== */
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #111;
+    background: #eef2f7;
+    margin: 0;
+    padding: 24px;
+}
+
+.sheet {
+    background: #fff;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 28px 32px 40px;
+    box-shadow: 0 1px 6px rgba(0,0,0,.15);
+}
+
+/* ---------- toolbar (screen only) ---------- */
+
+.toolbar {
+    max-width: 900px;
+    margin: 0 auto 16px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.toolbar form { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+.toolbar label { font-weight: 600; color: #003B73; }
+
+.toolbar select,
+.toolbar input {
+    padding: 6px 8px;
+    border: 1px solid #b9c6d4;
+    border-radius: 4px;
+    font-size: 12px;
+    background: #fff;
+}
+
+.btn {
+    display: inline-block;
+    padding: 7px 14px;
+    border: 0;
+    border-radius: 4px;
+    background: #0056A6;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn.secondary { background: #5f6b7a; }
+.btn.ghost { background: #fff; color: #0056A6; border: 1px solid #0056A6; }
+
+/* ---------- letterhead ---------- */
+
+.letterhead {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 2px solid #0056A6;
+    padding-bottom: 12px;
+    margin-bottom: 6px;
+}
+
+.letterhead img { height: 54px; width: auto; }
+
+.letterhead .org { font-size: 15px; font-weight: 700; color: #0056A6; }
+.letterhead .unit { font-size: 11px; color: #444; }
+
+h1 {
+    font-size: 16px;
+    margin: 14px 0 2px;
+    color: #003B73;
+}
+
+.subtitle { font-size: 11px; color: #555; margin-bottom: 14px; }
+
+/* ---------- meta block ---------- */
+
+.meta {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+}
+
+.meta td {
+    padding: 3px 0;
+    vertical-align: top;
+    font-size: 11.5px;
+}
+
+.meta td.k { width: 150px; color: #555; }
+.meta td.v { font-weight: 600; }
+
+/* ---------- data tables ---------- */
+
+table.data {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 18px;
+}
+
+table.data th {
+    background: #0056A6;
+    color: #fff;
+    text-align: left;
+    padding: 6px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    border: 1px solid #0056A6;
+}
+
+table.data td {
+    padding: 5px 8px;
+    border: 1px solid #cfd8e3;
+    font-size: 11px;
+    vertical-align: top;
+}
+
+table.data tbody tr:nth-child(even) td { background: #f5f8fc; }
+
+table.data tfoot td {
+    font-weight: 700;
+    background: #e8eef6;
+    border: 1px solid #cfd8e3;
+}
+
+td.num, th.num { text-align: right; }
+
+.pill {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 9px;
+    font-size: 10px;
+    font-weight: 600;
+    border: 1px solid;
+}
+
+.pill.Done     { color:#1b5e20; border-color:#1b5e20; background:#e8f5e9; }
+.pill.Ongoing  { color:#0056A6; border-color:#0056A6; background:#e7f0fa; }
+.pill.Upcoming { color:#8a5a00; border-color:#8a5a00; background:#fdf3e0; }
+.pill.Pending  { color:#7a1f1f; border-color:#7a1f1f; background:#fdeceb; }
+
+.sessions { font-size: 10px; color: #333; line-height: 1.7; }
+
+.sessions span {
+    display: inline-block;
+    border: 1px solid #cfd8e3;
+    border-radius: 3px;
+    padding: 0 5px;
+    margin: 0 3px 3px 0;
+    background: #fafcff;
+    white-space: nowrap;
+}
+
+.note {
+    border-left: 3px solid #8a5a00;
+    background: #fdf8ee;
+    padding: 8px 10px;
+    font-size: 11px;
+    margin-bottom: 16px;
+}
+
+.empty {
+    padding: 22px;
+    text-align: center;
+    color: #777;
+    border: 1px dashed #c3cede;
+    font-size: 12px;
+}
+
+/* ---------- signature + footer ---------- */
+
+.signatures {
+    display: flex;
+    gap: 60px;
+    margin-top: 34px;
+    font-size: 11px;
+}
+
+.signatures div { flex: 1; }
+
+.sig-line {
+    margin-top: 34px;
+    border-top: 1px solid #555;
+    padding-top: 4px;
+    color: #555;
+}
+
+.docfoot {
+    margin-top: 22px;
+    border-top: 1px solid #cfd8e3;
+    padding-top: 6px;
+    font-size: 10px;
+    color: #777;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* ==========================================================
+   PRINT RULES
+   ========================================================== */
+
+@page {
+    size: A4 {% block page_orientation %}portrait{% endblock %};
+    margin: 14mm 12mm;
+}
+
+@media print {
+
+    body { background: #fff; padding: 0; font-size: 11px; }
+
+    .sheet { box-shadow: none; max-width: none; margin: 0; padding: 0; }
+
+    .no-print { display: none !important; }
+
+    table.data { page-break-inside: auto; }
+    table.data thead { display: table-header-group; }
+    table.data tr { page-break-inside: avoid; }
+
+    .signatures { page-break-inside: avoid; }
+
+    a { color: #111; text-decoration: none; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="toolbar no-print">
+    {% block toolbar %}{% endblock %}
+    <button class="btn" onclick="window.print()">Print / Save as PDF</button>
+    <a class="btn secondary" href="{% block back_url %}/{% endblock %}">Back</a>
+</div>
+
+<div class="sheet">
+
+    <div class="letterhead">
+        <img src="{% static 'images/AUCA Logo.png' %}" alt="AUCA">
+        <div>
+            <div class="org">Adventist University of Central Africa</div>
+            <div class="unit">{% block unit %}Faculty of Information Technology{% endblock %}</div>
+        </div>
+    </div>
+
+    <h1>{% block heading %}{% endblock %}</h1>
+    <div class="subtitle">{% block subheading %}{% endblock %}</div>
+
+    {% block content %}{% endblock %}
+
+    <div class="docfoot">
+        <span>Generated by {{ request.user.get_full_name|default:request.user.username }}</span>
+        <span>AUCA Workload Management System &middot; {{ generated_at|date:"d M Y H:i" }}</span>
+    </div>
+
+</div>
+
+<script>
+    if (new URLSearchParams(window.location.search).get("auto") === "1") {
+        window.addEventListener("load", function () { window.print(); });
+    }
+</script>
+
+</body>
+</html>

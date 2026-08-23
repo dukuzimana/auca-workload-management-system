@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Faculties
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<div class="dashboard-wrapper">
+
+
+<h2 class="page-title">
+Faculty Management
+</h2>
+
+
+<a href="{% url 'academics:faculty_create' %}"
+class="admin-dashboard-btn">
+
+<i class="fa-solid fa-plus"></i>
+
+Add Faculty
+
+</a>
+
+
+
+{% include "partials/search_box.html" %}
+
+{% if is_searching %}
+<p class="search-summary">
+Showing <strong>{{ result_count }}</strong> of {{ total_count }}
+matching &ldquo;<strong>{{ search_query }}</strong>&rdquo;.
+</p>
+{% endif %}
+
+<div class="table-scroll">
+
+<table class="modern-table">
+
+
+<tr>
+
+<th>
+Name
+</th>
+
+
+<th>
+Programs
+</th>
+
+
+<th>
+Actions
+</th>
+
+</tr>
+
+
+
+
+{% for faculty in faculties %}
+
+
+<tr>
+
+
+<td>
+{{ faculty.name }}
+</td>
+
+
+
+<td>
+{{ faculty.programs.count }}
+</td>
+
+
+
+<td>
+
+
+
+<div class="table-actions">
+<a 
+href="{% url 'academics:faculty_update' faculty.id %}"
+class="edit-btn">
+
+<i class="fa-solid fa-pen"></i>
+
+Edit
+
+</a>
+
+
+
+<a
+href="{% url 'academics:faculty_delete' faculty.id %}"
+class="delete-link">
+
+<i class="fa-solid fa-trash"></i>
+
+Delete
+
+</a>
+</div>
+
+
+
+</td>
+
+
+</tr>
+
+
+
+{% empty %}
+
+
+<tr>
+
+<td colspan="3">
+
+{% if is_searching %}
+Nothing matches &ldquo;{{ search_query }}&rdquo;.
+<a href="{{ request.path }}">Clear the search</a>
+to see all {{ total_count }}.
+{% else %}
+No faculties available
+{% endif %}
+
+</td>
+
+</tr>
+
+
+
+{% endfor %}
+
+
+
+</table>
+
+</div>
+
+
+</div>
+
+
+{% endblock %}
